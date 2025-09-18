@@ -1,0 +1,97 @@
+/*! tailwindcss v4.1.13 | MIT License | https://tailwindcss.com */
+@layer properties;
+.sticky {
+  position: sticky;
+}
+.z-40 {
+  z-index: 40;
+}
+.mx-auto {
+  margin-inline: auto;
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.hidden {
+  display: none;
+}
+.min-h-screen {
+  min-height: 100vh;
+}
+.w-full {
+  width: 100%;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.list-disc {
+  list-style-type: disc;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.place-items-center {
+  place-items: center;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.bg-\[rgba\(10\,10\,10\,0\.6\)\] {
+  background-color: rgba(10,10,10,0.6);
+}
+.bg-\[var\(--bg\)\] {
+  background-color: var(--bg);
+}
+.text-left {
+  text-align: left;
+}
+.text-\[var\(--fg\)\] {
+  color: var(--fg);
+}
+.hover\:underline {
+  &:hover {
+    @media (hover: hover) {
+      text-decoration-line: underline;
+    }
+  }
+}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+html, body {
+  background-color: #222222 !important;
+  color: #fff !important;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+.navbar-banana {
+  background-color: #FFE135;
+  color: #222;
+}
+.banana-accent {
+  background-color: #FFB800;
+  color: #222;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
+    *, ::before, ::after, ::backdrop {
+      --tw-border-style: solid;
+    }
+  }
+}

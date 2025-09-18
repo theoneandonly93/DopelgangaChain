@@ -1,0 +1,13 @@
+{
+  "name": "dopelgangachain-indexer",
+  "version": "1.0.0",
+  "description": "LayerBlock indexer for DopelgangaChain",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.95.2",
+    "dotenv": "^16.3.1"
+  }
+}

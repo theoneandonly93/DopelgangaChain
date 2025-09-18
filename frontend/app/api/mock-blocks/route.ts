@@ -1,0 +1,1 @@
+export const dynamic='force-dynamic';export async function GET(){const now=Date.now();const blocks=Array.from({length:6}).map((_,i)=>({blockNumber:1000-i,timestamp:now-i*60000,events:Array.from({length:Math.floor(Math.random()*5)+1}).map((_,j)=>`Tx ${j+1}`)}));return Response.json({blocks});}
