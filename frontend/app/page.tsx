@@ -38,7 +38,9 @@ export default function Home() {
         <div className="mt-4 grid md:grid-cols-2 gap-4">
           <Card className="shadow-card text-left">
             <div className="text-xs text-white/60">RPC URL</div>
-            <div className="font-mono mt-1 text-white/90">https://dopelgangachain.dev</div>
+            <div className="font-mono mt-1 text-white/90 break-all overflow-x-auto whitespace-pre-wrap max-w-full" style={{wordBreak: 'break-all'}}>
+              https://dopelgangachain.dev
+            </div>
             <div className="mt-3 flex gap-2">
               <CopyButton value="https://dopelgangachain.dev" label="Copy URL" className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30" />
               <ComingSoonButton>Open Explorer</ComingSoonButton>
