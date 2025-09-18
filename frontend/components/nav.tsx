@@ -25,6 +25,7 @@ export function Nav() {
           </div>
           <span className="font-extrabold tracking-wide">DOPELGANGA CHAIN</span>
         </Link>
+        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">
           <Link href="/#features" className="hover:text-white">Features</Link>
           <a href="/#ecosystem" className="hover:text-white inline-flex items-center gap-1" onClick={soonClick}>
@@ -39,6 +40,11 @@ export function Nav() {
           </a>
           <Link href="/documents" className="hover:text-white">Docs</Link>
           <Link href="/pitchdeck" className="hover:text-white font-bold">Pitch Deck</Link>
+        </nav>
+        {/* Mobile nav buttons under Docs */}
+        <nav className="flex md:hidden flex-col gap-2 absolute left-0 right-0 top-16 bg-[rgba(10,10,10,0.98)] px-4 py-3 border-b border-white/10 z-50">
+          <Link href="/documents" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold">Docs</Link>
+          <Link href="/pitchdeck" className="block w-full text-left py-2 px-3 rounded bg-dopel-500 text-white font-bold">Pitch Deck</Link>
         </nav>
         <div className="flex items-center gap-3">
           <WalletMultiButton className="!bg-dopel-500 hover:!bg-dopel-400" />
