@@ -2,7 +2,6 @@ import '../../styles/globals.css';
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import { docsNav } from '../../docs/nav';
-import { DocsMDXProvider } from '../mdx-components';
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
@@ -36,9 +35,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
       </aside>
       <main className="col-span-12 md:col-span-7">
         <article className="prose prose-invert max-w-none">
-          <DocsMDXProvider>
-            {children}
-          </DocsMDXProvider>
+          {children}
         </article>
       </main>
       <aside className="hidden lg:block col-span-2">
