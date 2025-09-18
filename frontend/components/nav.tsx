@@ -38,6 +38,7 @@ export function Nav() {
             <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 border border-white/10">Soon</span>
           </a>
           <Link href="/documents" className="hover:text-white">Docs</Link>
+          <Link href="/pitchdeck" className="hover:text-white font-bold">Pitch Deck</Link>
         </nav>
         <div className="flex items-center gap-3">
           <WalletMultiButton className="!bg-dopel-500 hover:!bg-dopel-400" />
