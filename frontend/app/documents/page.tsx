@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 export default function DocumentsPage() {
   return (
     <div className="space-y-6 sm:space-y-10">
