@@ -1,17 +1,19 @@
 import { NextResponse } from "next/server";
-import db from "@/utils/db";
+import { supabase } from "@/utils/supabaseClient";
 
 export async function GET() {
   try {
-    const result = await db.query(
-      `SELECT signature, type, amount, from_addr AS "from", to_addr AS "to", timestamp
-       FROM dopel_transactions
-       ORDER BY id DESC
-       LIMIT 20`
-    );
+    const { data, error } = await supabase
+      .from('dopel_transactions')
+      .select('signature, type, amount, from_addr, to_addr, timestamp')
+      .order('id', { ascending: false })
+      .limit(20);
+    if (error) throw error;
     // Format time as ISO string
-    const txs = result.rows.map((tx: any) => ({
+    const txs = (data || []).map((tx: any) => ({
       ...tx,
+      from: tx.from_addr,
+      to: tx.to_addr,
       time: new Date(Number(tx.timestamp)).toISOString()
     }));
     return NextResponse.json(txs);

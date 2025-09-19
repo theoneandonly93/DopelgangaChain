@@ -1,6 +1,5 @@
 
 import { Connection, PublicKey } from "@solana/web3.js";
-import db from "./db";
 import { runMigrations } from "./migrate";
 
 const PROGRAM_ID = new PublicKey(
@@ -14,9 +13,9 @@ let blockNumber = 0;
 
 if (typeof window === "undefined") {
   (async () => {
-    await runMigrations(); // Ensure DB schema exists
-    console.log("🚀 DopelgangaChain Indexer starting...");
-    await startIndexer();
+  await runMigrations(); // Ensure DB schema exists (Supabase)
+  console.log("🚀 DopelgangaChain Indexer starting...");
+  await startIndexer();
   })();
 }
 
@@ -38,51 +37,16 @@ async function startIndexer() {
           try {
             const parsed = JSON.parse(msg); // If you emit JSON logs
             events.push(parsed);
-          } catch {
-            events.push({ raw: msg }); // fallback
+          } catch (e) {
+            // ignore non-JSON logs
           }
         }
       });
-
-      // Insert block
-      await db.query(
-        "INSERT INTO dopel_blocks (block_number, timestamp, events) VALUES ($1,$2,$3)",
-        [blockNumber, timestamp, JSON.stringify(events)]
-      );
-
-      // Insert transactions (simplified example)
-      for (const ev of events) {
-        if (ev.type === "Transfer") {
-          await db.query(
-            `INSERT INTO dopel_transactions (signature, type, amount, from_addr, to_addr, timestamp)
-             VALUES ($1,$2,$3,$4,$5,$6)`,
-            [
-              signature,
-              "Transfer",
-              ev.amount || 0,
-              ev.from || null,
-              ev.to || null,
-              timestamp,
-            ]
-          );
-        }
-        if (ev.type === "MintDopel") {
-          await db.query(
-            `INSERT INTO dopel_transactions (signature, type, amount, from_addr, to_addr, timestamp)
-             VALUES ($1,$2,$3,$4,$5,$6)`,
-            [
-              signature,
-              "Mint",
-              ev.amount || 0,
-              null,
-              ev.to || null,
-              timestamp,
-            ]
-          );
-        }
-      }
-
-      console.log(`✅ Block #${blockNumber} recorded with ${events.length} events`);
+      // TODO: Insert block and transactions into Supabase
+      // Example:
+      // await supabase.from('dopel_blocks').insert([{ block_number: blockNumber, timestamp, events }]);
+      // for (const ev of events) { ... }
+      console.log(`✅ Block #${blockNumber} parsed with ${events.length} events`);
     } catch (err) {
       console.error("❌ Indexer error:", err);
     }

@@ -1,16 +1,18 @@
 import { NextResponse } from "next/server";
-import db from "@/utils/db";
+import { supabase } from "@/utils/supabaseClient";
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const limit = parseInt(searchParams.get("limit") || "20");
-    const result = await db.query(
-      "SELECT * FROM dopel_blocks ORDER BY block_number DESC LIMIT $1",
-      [limit]
-    );
+    const { data, error } = await supabase
+      .from('dopel_blocks')
+      .select('*')
+      .order('block_number', { ascending: false })
+      .limit(limit);
+    if (error) throw error;
     // Parse events JSON
-    const blocks = result.rows.map((row: any) => ({
+    const blocks = (data || []).map((row: any) => ({
       ...row,
       events: typeof row.events === 'string' ? JSON.parse(row.events) : row.events
     }));

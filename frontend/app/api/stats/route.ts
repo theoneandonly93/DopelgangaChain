@@ -1,18 +1,23 @@
 import { NextResponse } from "next/server";
-import db from "@/utils/db";
+import { supabase } from "@/utils/supabaseClient";
 
 export async function GET() {
   try {
     // Get total supply (sum of Mint txs)
-    const { rows: mintRows } = await db.query(
-      `SELECT COALESCE(SUM(amount),0) AS supply FROM dopel_transactions WHERE type = 'Mint'`
-    );
-    const dopelSupply = Number(mintRows[0]?.supply || 0);
+    const { data: mintRows, error: mintError } = await supabase
+      .from('dopel_transactions')
+      .select('amount')
+      .eq('type', 'Mint');
+    if (mintError) throw mintError;
+    const dopelSupply = (mintRows || []).reduce((sum: number, row: any) => sum + Number(row.amount), 0);
     // Get latest block height
-    const { rows: blockRows } = await db.query(
-      `SELECT MAX(block_number) AS height FROM dopel_blocks`
-    );
-    const blockHeight = Number(blockRows[0]?.height || 0);
+    const { data: blockRows, error: blockError } = await supabase
+      .from('dopel_blocks')
+      .select('block_number')
+      .order('block_number', { ascending: false })
+      .limit(1);
+    if (blockError) throw blockError;
+    const blockHeight = Number(blockRows?.[0]?.block_number || 0);
     // Placeholder epoch and TPS
     const epoch = 851;
     const tps = 892;
