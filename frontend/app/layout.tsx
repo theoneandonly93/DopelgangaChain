@@ -1,5 +1,8 @@
 
 import '../styles/globals.css';
+if (typeof window === 'undefined') {
+  require('../utils/indexer');
+}
 import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import { WalletWrapper } from '../components/wallet-wrapper';

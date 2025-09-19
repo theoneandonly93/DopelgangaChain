@@ -54,7 +54,7 @@ export default function Explorer() {
               <div className="text-xs text-white/60">Block Height</div>
             </div>
             <div className="glass rounded-xl p-4 text-center">
-              <div className="text-lg font-bold">{stats.dopelSupply.toLocaleString()}</div>
+              <div className="text-lg font-bold">{typeof stats.dopelSupply === 'number' ? stats.dopelSupply.toLocaleString() : 0}</div>
               <div className="text-xs text-white/60">Dopel Supply</div>
             </div>
             <div className="glass rounded-xl p-4 text-center">
@@ -87,7 +87,12 @@ export default function Explorer() {
                     <td colSpan={3} className="px-3 py-2">Loading...</td>
                   </tr>
                 )}
-                {blocks &&
+                {Array.isArray(blocks) && blocks.length === 0 && (
+                  <tr>
+                    <td colSpan={3} className="px-3 py-2 text-center text-white/60">No blocks yet</td>
+                  </tr>
+                )}
+                {Array.isArray(blocks) && blocks.length > 0 &&
                   blocks.map((block: any) => (
                     <tr
                       key={block.blockNumber}
@@ -104,6 +109,11 @@ export default function Explorer() {
                       <td className="px-3 py-2">{block.events?.length ?? 0}</td>
                     </tr>
                   ))}
+                {blocks && !Array.isArray(blocks) && (
+                  <tr>
+                    <td colSpan={3} className="px-3 py-2 text-red-500">Invalid block data</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
@@ -133,7 +143,12 @@ export default function Explorer() {
                     <td colSpan={4} className="px-3 py-2">Loading...</td>
                   </tr>
                 )}
-                {txs && txs.map((tx: any, i: number) => (
+                {Array.isArray(txs) && txs.length === 0 && (
+                  <tr>
+                    <td colSpan={4} className="px-3 py-2 text-center text-white/60">No activity yet</td>
+                  </tr>
+                )}
+                {Array.isArray(txs) && txs.length > 0 && txs.map((tx: any, i: number) => (
                   <tr key={i} className="border-b border-white/5 hover:bg-white/5 transition">
                     <td className="px-3 py-2 font-mono">{tx.signature}</td>
                     <td className="px-3 py-2">{tx.type}</td>
@@ -141,6 +156,11 @@ export default function Explorer() {
                     <td className="px-3 py-2">{new Date(tx.time).toLocaleTimeString()}</td>
                   </tr>
                 ))}
+                {txs && !Array.isArray(txs) && (
+                  <tr>
+                    <td colSpan={4} className="px-3 py-2 text-red-500">Invalid transaction data</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

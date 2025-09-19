@@ -1,24 +1,19 @@
 import { NextResponse } from "next/server";
+import db from "@/utils/db";
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const limit = parseInt(searchParams.get("limit") || "20");
-
-    // TODO: Replace with DB/indexer logic
-    const blocks = [
-      {
-        blockNumber: 1000,
-        timestamp: Date.now(),
-        events: [{ type: "Transfer", from: "A", to: "B", amount: 50 }],
-      },
-      {
-        blockNumber: 999,
-        timestamp: Date.now() - 6000,
-        events: [{ type: "Mint", to: "C", amount: 100 }],
-      },
-    ].slice(0, limit);
-
+    const result = await db.query(
+      "SELECT * FROM dopel_blocks ORDER BY block_number DESC LIMIT $1",
+      [limit]
+    );
+    // Parse events JSON
+    const blocks = result.rows.map((row: any) => ({
+      ...row,
+      events: typeof row.events === 'string' ? JSON.parse(row.events) : row.events
+    }));
     return NextResponse.json(blocks);
   } catch (err) {
     console.error("API error:", err);
