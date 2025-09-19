@@ -26,6 +26,11 @@ export function Nav() {
         </Link>
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">
+          <Link href="/dashboard" className="hover:text-white">Dashboard</Link>
+          <Link href="/airdrop" className="hover:text-white">Airdrop</Link>
+          <Link href="/blocks" className="hover:text-white">Blocks</Link>
+          <Link href="/launch-token" className="hover:text-white">Launch Token</Link>
+          <Link href="/referral" className="hover:text-white">Referral</Link>
           <Link href="/#features" className="hover:text-white">Features</Link>
           <Link href="/#roadmap" className="hover:text-white">Roadmap</Link>
           <Link href="/#network" className="hover:text-white">Network</Link>
@@ -56,6 +61,11 @@ export function Nav() {
         {/* Collapsible mobile nav */}
         {menuOpen && (
           <nav className="flex md:hidden flex-col gap-2 absolute left-0 right-0 top-16 bg-[rgba(10,10,10,0.98)] px-4 py-3 border-b border-white/10 z-50 shadow-lg animate-fade-in">
+            <Link href="/dashboard" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+            <Link href="/airdrop" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Airdrop</Link>
+            <Link href="/blocks" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Blocks</Link>
+            <Link href="/launch-token" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Launch Token</Link>
+            <Link href="/referral" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Referral</Link>
             <Link href="/documents" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Docs</Link>
             <Link href="/pitchdeck" className="block w-full text-left py-2 px-3 rounded bg-dopel-500 text-white font-bold" onClick={() => setMenuOpen(false)}>Pitch Deck</Link>
           </nav>
