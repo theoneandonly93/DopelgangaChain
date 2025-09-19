@@ -24,9 +24,9 @@ export function Nav() {
       <div className="max-w-6xl mx-auto flex items-center justify-between h-16 px-4 relative">
         <Link href="/" className="flex items-center gap-3 no-underline">
           <div className="size-8 rounded-xl bg-dopel-500/20 border border-dopel-500/40 grid place-items-center transition-transform duration-300 hover:rotate-6 hover:scale-105">
-            <Image src="/dopel.svg" alt="DopelgangaChain logo" width={18} height={18} className="pointer-events-none select-none" />
+            <Image src="/dopel.svg" alt="Dopelganga logo" width={18} height={18} className="pointer-events-none select-none" />
           </div>
-          <span className="font-extrabold tracking-wide">DOPELGANGA CHAIN</span>
+          <span className="font-extrabold tracking-wide">DOPELGANGA</span>
         </Link>
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">

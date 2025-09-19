@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav className="navbar-banana w-full py-3 px-6 flex items-center justify-between shadow-lg font-banana">
       <div className="font-bold text-2xl tracking-tight flex items-center gap-2">
-        <span role="img" aria-label="logo">🍌</span> DopelgangaChain
+        <span role="img" aria-label="logo"></span> Dopelganga
       </div>
       <div className="flex gap-6 text-lg font-medium">
         <Link href="/">
