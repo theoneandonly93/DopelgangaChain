@@ -8,7 +8,7 @@ import { PublicKey, SystemProgram } from "@solana/web3.js";
 
 // Replace with your deployed Program ID
 export const PROGRAM_ID = new PublicKey(
-  process.env.NEXT_PUBLIC_PROGRAM_ID || "Dopelganga1111111111111111111111111111111111"
+  process.env.NEXT_PUBLIC_PROGRAM_ID || "HAzZhRcVrrFWYU9K4nWCSvpgLLcMSb9GZRfrcs3bYfDP"
 );
 
 // Seeds

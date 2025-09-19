@@ -25,40 +25,7 @@ export default function DocumentsPage() {
         </div>
       </section>
 
-      <section id="roadmap" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
-        <h2 className="text-xl sm:text-2xl font-bold">Roadmap</h2>
-        <p className="text-white/70 mt-2 text-sm sm:text-base">Coming soon</p>
-      </section>
-      
-      <section id="wallets" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
-        <h2 className="text-xl sm:text-2xl font-bold">Wallets</h2>
-        <p className="text-white/70 mt-2 text-sm sm:text-base">Coming soon</p>
-      </section>
-
-      <section id="programs" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
-        <h2 className="text-xl sm:text-2xl font-bold">Programs</h2>
-        <p className="text-white/70 mt-2 text-sm sm:text-base">Coming soon</p>
-      </section>
-
-      <section id="dopel" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
-        <h2 className="text-xl sm:text-2xl font-bold">Tokens (DOPEL)</h2>
-        <p className="text-white/70 mt-2 text-sm sm:text-base">Coming soon</p>
-      </section>
-
-      <section id="nodes" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
-        <h2 className="text-xl sm:text-2xl font-bold">Nodes</h2>
-        <p className="text-white/70 mt-2 text-sm sm:text-base">Coming soon</p>
-      </section>
-
-      <section id="monitoring" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
-        <h2 className="text-xl sm:text-2xl font-bold">Monitoring</h2>
-        <p className="text-white/70 mt-2 text-sm sm:text-base">Coming soon</p>
-      </section>
-
-      <section id="faq" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
-        <h2 className="text-xl sm:text-2xl font-bold">FAQ</h2>
-        <p className="text-white/70 mt-2 text-sm sm:text-base">Coming soon</p>
-      </section>
+      {/* Roadmap, Wallets, Programs, Tokens, Nodes, Monitoring, FAQ sections removed until live info is available */}
 
     </div>
   );

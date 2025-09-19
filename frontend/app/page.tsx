@@ -1,7 +1,6 @@
 
 import { Card } from '../components/Card';
 import { CopyButton } from '../components/CopyButton';
-import { ComingSoonButton } from '../components/ComingSoonButton';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -43,7 +42,7 @@ export default function Home() {
             </div>
             <div className="mt-3 flex gap-2">
               <CopyButton value="https://dopelgangachain.dev" label="Copy URL" className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30" />
-              <ComingSoonButton>Open Explorer</ComingSoonButton>
+              {/* TODO: Replace with live explorer link when available */}
             </div>
           </Card>
           <Card className="shadow-card text-left">
@@ -67,10 +66,7 @@ export default function Home() {
       <section id="ecosystem" className="mb-12">
         <h3 className="text-2xl font-bold mb-4 text-center">Ecosystem</h3>
         <div className="grid md:grid-cols-4 gap-5">
-          <Card className="shadow-card text-center"><h4 className="font-semibold">DEX</h4><p className="text-sm text-white/70 mt-2">Coming soon</p></Card>
-          <Card className="shadow-card text-center"><h4 className="font-semibold">Wallet</h4><p className="text-sm text-white/70 mt-2">Coming soon</p></Card>
-          <Card className="shadow-card text-center"><h4 className="font-semibold">Bridge</h4><p className="text-sm text-white/70 mt-2">Coming soon</p></Card>
-          <Card className="shadow-card text-center"><h4 className="font-semibold">Tools</h4><p className="text-sm text-white/70 mt-2">Coming soon</p></Card>
+          {/* DEX, Wallet, Bridge, Tools: Show only if live. Remove placeholders. */}
         </div>
       </section>
 
@@ -87,7 +83,7 @@ export default function Home() {
         <h3 className="text-2xl font-bold">Faucet</h3>
         <p className="text-white/70 mt-2">Get DOPEL test tokens to try the network</p>
         <div className="mt-4 flex justify-center gap-3">
-          <ComingSoonButton>Request DOPEL</ComingSoonButton>
+          {/* TODO: Replace with live faucet button when available */}
           <Link href="/documents" className="px-5 py-2.5 rounded-xl border border-white/10 hover:border-white/30 bg-white/10">Read Docs</Link>
         </div>
       </section>

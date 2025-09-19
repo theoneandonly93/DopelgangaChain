@@ -2,7 +2,7 @@ const { Connection, PublicKey } = require('@solana/web3.js');
 require('dotenv').config();
 
 const PROGRAM_ID = new PublicKey(process.env.PROGRAM_ID);
-const connection = new Connection('https://api.devnet.solana.com');
+const connection = new Connection('https://api.mainnet-beta.solana.com');
 
 let blockNumber = 1;
 const layerBlocks = [];

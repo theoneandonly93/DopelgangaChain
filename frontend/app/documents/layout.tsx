@@ -10,7 +10,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
       <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="text-white/80 font-semibold">DopelgangaChain Docs</div>
         <div className="flex items-center gap-3 w-full sm:w-auto">
-          <input placeholder="Search docs (coming soon)" className="glass rounded-xl px-3 py-1.5 text-sm border border-white/10 outline-none w-full sm:w-auto" />
+          <input placeholder="Search docs" className="glass rounded-xl px-3 py-1.5 text-sm border border-white/10 outline-none w-full sm:w-auto" />
           <select className="glass rounded-xl px-3 py-1.5 text-sm border border-white/10 outline-none text-white/80">
             <option>v0 (Preview)</option>
           </select>

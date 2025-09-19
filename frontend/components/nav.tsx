@@ -15,10 +15,6 @@ const WalletMultiButton = dynamic<any>(
 export function Nav() {
   const { show } = useToast();
   const [menuOpen, setMenuOpen] = useState(false);
-  const soonClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
-    e.preventDefault();
-    show('Feature not live yet — coming soon');
-  };
   return (
     <header className="sticky top-0 z-40 bg-[rgba(10,10,10,0.6)] backdrop-blur border-b border-white/5">
       <div className="max-w-6xl mx-auto flex items-center justify-between h-16 px-4 relative">
@@ -31,16 +27,8 @@ export function Nav() {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">
           <Link href="/#features" className="hover:text-white">Features</Link>
-          <a href="/#ecosystem" className="hover:text-white inline-flex items-center gap-1" onClick={soonClick}>
-            Ecosystem
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 border border-white/10">Soon</span>
-          </a>
           <Link href="/#roadmap" className="hover:text-white">Roadmap</Link>
           <Link href="/#network" className="hover:text-white">Network</Link>
-          <a href="/#faucet" className="hover:text-white inline-flex items-center gap-1" onClick={soonClick}>
-            Faucet
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 border border-white/10">Soon</span>
-          </a>
           <Link href="/documents" className="hover:text-white">Docs</Link>
           <Link href="/pitchdeck" className="hover:text-white font-bold">Pitch Deck</Link>
         </nav>
