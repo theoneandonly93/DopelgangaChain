@@ -1,14 +1,18 @@
+/// <reference types="node" />
 import * as anchor from "@project-serum/anchor";
+import type { AnchorProvider, Idl } from "@project-serum/anchor";
 import {
   TOKEN_PROGRAM_ID,
   getAssociatedTokenAddress,
   createAssociatedTokenAccountInstruction,
 } from "@solana/spl-token";
 import { PublicKey, SystemProgram } from "@solana/web3.js";
+import { Buffer } from 'buffer';
+import idl from "../idl/dopelgangachain.json";
 
 // Replace with your deployed Program ID
 export const PROGRAM_ID = new PublicKey(
-  process.env.NEXT_PUBLIC_PROGRAM_ID || "HAzZhRcVrrFWYU9K4nWCSvpgLLcMSb9GZRfrcs3bYfDP"
+  (typeof process !== 'undefined' && process.env.NEXT_PUBLIC_PROGRAM_ID) || "HAzZhRcVrrFWYU9K4nWCSvpgLLcMSb9GZRfrcs3bYfDP"
 );
 
 // Seeds
@@ -18,19 +22,18 @@ const REF_SEED = Buffer.from("ref");
 // -------------------------
 // Get program client
 // -------------------------
-export function getProgram(provider: anchor.AnchorProvider) {
-  const idl = require("../idl/dopelgangachain.json"); // export your IDL after build
-  return new anchor.Program(idl, PROGRAM_ID, provider);
+export function getProgram(provider: AnchorProvider) {
+  return new anchor.Program(idl as Idl, PROGRAM_ID, provider);
 }
 
 // -------------------------
 // PDA helpers
 // -------------------------
-export async function getConfigPDA(): Promise<[PublicKey, number]> {
+export function getConfigPDA(): [PublicKey, number] {
   return PublicKey.findProgramAddressSync([CFG_SEED], PROGRAM_ID);
 }
 
-export async function getReferralPDA(user: PublicKey): Promise<[PublicKey, number]> {
+export function getReferralPDA(user: PublicKey): [PublicKey, number] {
   return PublicKey.findProgramAddressSync([REF_SEED, user.toBuffer()], PROGRAM_ID);
 }
 
@@ -38,7 +41,7 @@ export async function getReferralPDA(user: PublicKey): Promise<[PublicKey, numbe
 // Airdrop Dopel
 // -------------------------
 export async function airdropDopel(
-  provider: anchor.AnchorProvider,
+  provider: AnchorProvider,
   dopelMint: PublicKey,
   recipient: PublicKey,
   amount: number
@@ -63,7 +66,7 @@ export async function airdropDopel(
 // Transfer Dopel with fees
 // -------------------------
 export async function transferWithFees(
-  provider: anchor.AnchorProvider,
+  provider: AnchorProvider,
   dopelMint: PublicKey,
   from: PublicKey,
   to: PublicKey,
@@ -98,7 +101,7 @@ export async function transferWithFees(
 // Bind Referral
 // -------------------------
 export async function bindReferral(
-  provider: anchor.AnchorProvider,
+  provider: AnchorProvider,
   dopelMint: PublicKey,
   inviter: PublicKey,
   rewardAmount: number
@@ -127,7 +130,7 @@ export async function bindReferral(
 // Launch a new token
 // -------------------------
 export async function launchToken(
-  provider: anchor.AnchorProvider,
+  provider: AnchorProvider,
   decimals: number,
   initialMintTo: number,
   newMint: PublicKey,
@@ -147,7 +150,8 @@ export async function launchToken(
       recipientToken,
       tokenProgram: TOKEN_PROGRAM_ID,
       systemProgram: SystemProgram.programId,
-      associatedTokenProgram: new PublicKey("ATokenGPvtnhS..."), // standard ATA program id
+  // Canonical Associated Token Program ID
+  associatedTokenProgram: new PublicKey("ATokenGPvtnhN7dGN7TicL7w8ewkL9DN1d9L6bvz1mhm"),
       rent: anchor.web3.SYSVAR_RENT_PUBKEY,
     })
     .rpc();

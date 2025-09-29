@@ -1,0 +1,11 @@
+{
+  "name": "Dopelganga",
+  "symbol": "DOPE",
+  "description": "Native token of DopelgangaChain — powering blocks, rewards, liquidity, and governance.",
+  "image": "https://dopelganga.com/logo.png",
+  "extensions": {
+    "website": "https://dopelganga.com",
+    "twitter": "https://x.com/dopelgangachain",
+    "explorer": "https://dopelganga.com/explorer"
+  }
+}

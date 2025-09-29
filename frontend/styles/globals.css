@@ -46,7 +46,77 @@ html {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
+/* Solscan-like table aesthetics */
+.table-scan {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.table-scan thead th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.6);
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.table-scan tbody td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.row-hover:hover {
+  background-color: rgba(255,255,255,0.04);
+}
+
+/* Mobile list fallback when tables are hidden */
+.mobile-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 12px;
+}
+
 h1,h2,h3 {
   letter-spacing: -0.01em;
   font-weight: 800;
+}
+
+/* Solscan-like hero gradient (keeps Dopel palette) */
+.scan-hero {
+  background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 60%, #84cc16 100%);
+}
+
+/* Search bar */
+.scan-search {
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 9999px;
+  padding: 6px;
+}
+.scan-search-input {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 9999px;
+  color: #fff;
+  padding: 12px 16px;
+  width: 100%;
+}
+.scan-search-btn {
+  background: linear-gradient(135deg, #a78bfa, #22d3ee);
+  border-radius: 9999px;
+  padding: 10px 14px;
+  color: #fff;
+}
+
+/* Pills/Tabs */
+.pill {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 9999px;
+  padding: 8px 14px;
+  white-space: nowrap;
+}
+.pill-active {
+  background: rgba(180,255,10,0.16);
+  border-color: rgba(180,255,10,0.45);
 }

@@ -4,10 +4,11 @@ use anchor_spl::{
     token::{
         self, Mint, Token, TokenAccount, MintTo, Transfer as SplTransfer,
         InitializeMint2, // for launchpad
+        SetAuthority,
     },
 };
 
-declare_id!("Dopelganga1111111111111111111111111111111111"); // REPLACE AFTER DEPLOY
+declare_id!("HAzZhRcVrrFWYU9K4nWCSvpgLLcMSb9GZRfrcs3bYfDP"); // REPLACE AFTER DEPLOY
 
 // -------------------------------
 // PDA seeds
@@ -37,6 +38,8 @@ pub mod dopelgangachain {
         cfg.challenge_wallet = challenge_wallet;
         cfg.dev_wallet = dev_wallet;
         cfg.liq_wallet = liq_wallet;
+        cfg.reward_per_block = 0;
+        cfg.governance = ctx.accounts.admin.key();
         Ok(())
     }
 
@@ -203,6 +206,90 @@ pub mod dopelgangachain {
 
         Ok(())
     }
+
+    // -----------------------------------------------------------
+    // 6) Mint validator reward (inflation) - signed by CFG PDA
+    // -----------------------------------------------------------
+    pub fn mint_validator_reward(ctx: Context<MintValidatorReward>) -> Result<()> {
+        let cfg = &ctx.accounts.cfg;
+
+        let reward_amount: u64 = cfg.reward_per_block;
+
+        let cpi_accounts = MintTo {
+            mint: ctx.accounts.dopel_mint.to_account_info(),
+            to: ctx.accounts.validator_token_account.to_account_info(),
+            authority: ctx.accounts.cfg.to_account_info(),
+        };
+        let cpi_program = ctx.accounts.token_program.to_account_info();
+        let seeds: &[&[u8]] = &[CFG_SEED, &[ctx.bumps.cfg]];
+        let signer = &[&seeds[..]];
+        let cpi_ctx = CpiContext::new_with_signer(cpi_program, cpi_accounts, signer);
+        token::mint_to(cpi_ctx, reward_amount)?;
+
+        let slot = Clock::get()?.slot;
+        let ts = Clock::get()?.unix_timestamp;
+
+        // Anchor event + JSON log for indexer
+        emit!(ValidatorReward {
+            validator: ctx.accounts.validator.key(),
+            amount: reward_amount,
+            block: slot,
+            timestamp: ts,
+        });
+        msg!(
+            "{}",
+            format!(
+                "{{\"event\":\"ValidatorReward\",\"validator\":\"{}\",\"amount\":{},\"block\":{},\"timestamp\":{}}}",
+                ctx.accounts.validator.key(),
+                reward_amount,
+                slot,
+                ts
+            )
+        );
+
+        Ok(())
+    }
+
+    // -----------------------------------------------------------
+    // 7) Update config (reward per block) - governance only
+    // -----------------------------------------------------------
+    pub fn update_config(ctx: Context<UpdateConfig>, new_reward: u64) -> Result<()> {
+        let cfg = &mut ctx.accounts.cfg;
+        cfg.reward_per_block = new_reward;
+        msg!(
+            "{}",
+            format!("{{\"event\":\"UpdateConfig\",\"reward_per_block\":{}}}", new_reward)
+        );
+        Ok(())
+    }
+
+    // -----------------------------------------------------------
+    // 8) Governance: set mint authority (e.g., temporarily to wallet to set metadata)
+    // -----------------------------------------------------------
+    pub fn set_mint_authority(ctx: Context<SetMintAuthority>) -> Result<()> {
+        // current authority = cfg PDA signer
+        let seeds: &[&[u8]] = &[CFG_SEED, &[ctx.bumps.cfg]];
+        let signer = &[&seeds[..]];
+        let cpi_accounts = SetAuthority {
+            account_or_mint: ctx.accounts.dopel_mint.to_account_info(),
+            current_authority: ctx.accounts.cfg.to_account_info(),
+        };
+        let cpi_program = ctx.accounts.token_program.to_account_info();
+        let cpi_ctx = CpiContext::new_with_signer(cpi_program, cpi_accounts, signer);
+        token::set_authority(
+            cpi_ctx,
+            spl_token::instruction::AuthorityType::MintTokens,
+            Some(ctx.accounts.new_mint_authority.key()),
+        )?;
+        msg!(
+            "{}",
+            format!(
+                "{{\"event\":\"SetMintAuthority\",\"new\":\"{}\"}}",
+                ctx.accounts.new_mint_authority.key()
+            )
+        );
+        Ok(())
+    }
 }
 
 // -------------------------------
@@ -236,6 +323,8 @@ pub struct Config {
     pub challenge_wallet: Pubkey,
     pub dev_wallet: Pubkey,
     pub liq_wallet: Pubkey,
+    pub reward_per_block: u64,
+    pub governance: Pubkey,
 }
 
 #[derive(Accounts)]
@@ -248,7 +337,7 @@ pub struct Initialize<'info> {
         seeds = [CFG_SEED],
         bump,
         payer = admin,
-        space = 8 + 32*5
+        space = 8 + 32*6 + 8
     )]
     pub cfg: Account<'info, Config>,
     pub system_program: Program<'info, System>,
@@ -349,6 +438,27 @@ pub struct LaunchToken<'info> {
     pub rent: Sysvar<'info, Rent>,
 }
 
+#[derive(Accounts)]
+pub struct MintValidatorReward<'info> {
+    #[account(mut, seeds = [CFG_SEED], bump)]
+    pub cfg: Account<'info, Config>,
+    /// CHECK: must match cfg.dopel_mint
+    #[account(mut, address = cfg.dopel_mint)]
+    pub dopel_mint: Account<'info, Mint>,
+    #[account(mut)]
+    pub validator_token_account: Account<'info, TokenAccount>,
+    /// CHECK: validator wallet signer
+    pub validator: Signer<'info>,
+    pub token_program: Program<'info, Token>,
+}
+
+#[derive(Accounts)]
+pub struct UpdateConfig<'info> {
+    #[account(mut, has_one = governance)]
+    pub cfg: Account<'info, Config>,
+    pub governance: Signer<'info>,
+}
+
 // -------------------------------
 // Events
 // -------------------------------
@@ -383,6 +493,26 @@ pub struct TokenLaunched {
     pub recipient: Pubkey,
     pub initial_mint_to: u64,
     pub decimals: u8,
+}
+
+#[event]
+pub struct ValidatorReward {
+    pub validator: Pubkey,
+    pub amount: u64,
+    pub block: u64,
+    pub timestamp: i64,
+}
+
+#[derive(Accounts)]
+pub struct SetMintAuthority<'info> {
+    #[account(mut, has_one = governance, seeds = [CFG_SEED], bump)]
+    pub cfg: Account<'info, Config>,
+    pub governance: Signer<'info>,
+    #[account(mut, address = cfg.dopel_mint)]
+    pub dopel_mint: Account<'info, Mint>,
+    /// CHECK: new authority for mint
+    pub new_mint_authority: UncheckedAccount<'info>,
+    pub token_program: Program<'info, Token>,
 }
 
 // -------------------------------

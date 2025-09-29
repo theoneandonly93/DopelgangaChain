@@ -1,6 +1,7 @@
 
 import '../styles/globals.css';
-if (typeof window === 'undefined') {
+const enableEmbeddedIndexer = process.env.EMBEDDED_INDEXER === '1';
+if (typeof window === 'undefined' && enableEmbeddedIndexer) {
   require('../utils/indexer');
 }
 import { ReactNode } from 'react';

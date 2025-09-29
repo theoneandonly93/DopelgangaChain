@@ -1,6 +1,22 @@
 {
+  "scripts": {
+    "hash:metadata": "node -e \"const fs=require('fs');const c=fs.readFileSync('metadata/dopelganga.json');const {createHash}=require('crypto');const h=createHash('sha256').update(c).digest('hex');console.log('dopelganga.json SHA256:',h);\"",
+    "token:metadata:set": "node scripts/setTokenMetadata.mjs",
+    "token:metadata:lock": "node scripts/lockMetadata.mjs",
+    "token:metadata:verify": "node scripts/verifyTokenMetadata.mjs",
+    "finalize:metadata": "node scripts/finalizeMetadata.mjs",
+    "finalize:metadata:dry-run": "DRY_RUN=1 node scripts/finalizeMetadata.mjs",
+    "mint:reward": "node scripts/mintReward.mjs",
+    "mint:authority:set": "node scripts/setMintAuthority.mjs"
+  },
   "dependencies": {
+    "@metaplex-foundation/mpl-token-metadata": "^3.4.0",
+    "@metaplex-foundation/umi": "^1.0.0",
+    "@metaplex-foundation/umi-bundle-defaults": "^1.0.0",
+    "@solana/spl-token": "^0.4.14",
+    "@solana/web3.js": "^1.98.4",
     "@supabase/supabase-js": "^2.57.4",
+    "dotenv": "^16.4.5",
     "@tailwindcss/cli": "^4.1.13",
     "encoding": "^0.1.13",
     "tailwindcss": "^4.1.13"

@@ -4,12 +4,17 @@
   "description": "LayerBlock indexer for DopelgangaChain",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "metadata:set": "npm --prefix .. run token:metadata:set",
+    "metadata:lock": "npm --prefix .. run token:metadata:lock",
+    "metadata:verify": "npm --prefix .. run token:metadata:verify",
+    "metadata:finalize": "npm --prefix .. run finalize:metadata"
   },
   "dependencies": {
     "@solana/web3.js": "^1.95.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "@supabase/supabase-js": "^2.57.4"
   }
 }

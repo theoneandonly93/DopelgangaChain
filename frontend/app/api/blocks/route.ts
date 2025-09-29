@@ -7,13 +7,14 @@ export async function GET(req: Request) {
     const limit = parseInt(searchParams.get("limit") || "20");
     const { data, error } = await supabase
       .from('dopel_blocks')
-      .select('*')
+      .select('block_number, timestamp, events')
       .order('block_number', { ascending: false })
       .limit(limit);
     if (error) throw error;
-    // Parse events JSON
+    // Normalize shape for Explorer UI
     const blocks = (data || []).map((row: any) => ({
-      ...row,
+      blockNumber: Number(row.block_number),
+      timestamp: Number(row.timestamp),
       events: typeof row.events === 'string' ? JSON.parse(row.events) : row.events
     }));
     return NextResponse.json(blocks);

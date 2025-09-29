@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "print:cfg-pda": "cross-env ts-node scripts/printCfgPda.ts",
+    "sync:metadata": "node -e \"const fs=require('fs');fs.copyFileSync('../metadata/dopelganga.json','public/metadata/dopelganga.json');console.log('Metadata synced.');\""
   },
   "dependencies": {
     "@project-serum/anchor": "^0.26.0",
@@ -12,7 +14,7 @@
     "@solana/wallet-adapter-react": "^0.15.39",
     "@solana/wallet-adapter-react-ui": "^0.9.39",
     "@solana/wallet-adapter-wallets": "^0.19.37",
-    "@solana/web3.js": "^1.95.2",
+    "@solana/web3.js": "^1.98.4",
     "@supabase/supabase-js": "^2.57.4",
     "next": "13.4.19",
     "pino-pretty": "^13.1.1",
@@ -31,12 +33,15 @@
     "@types/babel__traverse": "^7.20.6",
     "@types/istanbul-lib-report": "^3.0.3",
     "@types/istanbul-reports": "^3.0.4",
+    "@types/node": "^20.14.11",
     "@types/react": "19.1.13",
     "@types/trusted-types": "^2.0.7",
     "@types/w3c-web-usb": "^1.0.10",
     "autoprefixer": "^10.4.21",
+    "cross-env": "^7.0.3",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.13",
+    "ts-node": "10.9.2",
     "typescript": "^5.6.3"
   }
 }
