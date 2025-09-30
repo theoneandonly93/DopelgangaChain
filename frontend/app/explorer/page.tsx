@@ -106,7 +106,7 @@ export default function Explorer() {
             </span>
             <span className="inline-flex items-center gap-2 pill">
               <span className="w-2 h-2 rounded-full bg-fuchsia-400"></span>
-              Rewards/Block {stats?.rewardPerBlock ? (Number(stats.rewardPerBlock)/1e9).toFixed(4) : 0} DOP
+              Rewards/Block {stats?.rewardPerBlock ? (Number(stats.rewardPerBlock)/1e9).toFixed(4) : 0} DOPE
             </span>
             <span className="inline-flex items-center gap-2 pill">
               <span className="w-2 h-2 rounded-full bg-lime-400"></span>
@@ -142,7 +142,7 @@ export default function Explorer() {
             </div>
             <div className="glass rounded-xl p-4 text-center">
               <div className="text-lg font-bold">{typeof stats.dopelSupply === 'number' ? stats.dopelSupply.toLocaleString() : 0}</div>
-              <div className="text-xs text-white/60">Dopel Supply</div>
+              <div className="text-xs text-white/60">$DOPE Supply</div>
             </div>
             <div className="glass rounded-xl p-4 text-center">
               <div className="text-lg font-bold">Epoch {stats.epoch}</div>
@@ -240,7 +240,7 @@ export default function Explorer() {
                   <tr key={i} className="row-hover">
                     <td className="px-3 py-2 font-mono">{tx.signature}</td>
                     <td className="px-3 py-2">{tx.type}</td>
-                    <td className="px-3 py-2">{tx.amount}</td>
+                    <td className="px-3 py-2">{(Number(tx.amount) / 1e9).toFixed(4)} DOPE</td>
                     <td className="px-3 py-2">{new Date(tx.time).toLocaleTimeString()}</td>
                   </tr>
                 ))}

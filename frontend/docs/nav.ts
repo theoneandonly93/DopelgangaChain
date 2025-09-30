@@ -15,7 +15,7 @@ export const docsNav: DocsSection[] = [
     title: 'Develop',
     items: [
       { title: 'Programs', href: '/documents/programs' },
-      { title: 'Tokens (DOPEL)', href: '/documents/tokens' },
+      { title: 'Tokens (DOPE)', href: '/documents/tokens' },
       { title: 'Launch a Token', href: '/documents/launch-token' },
       { title: 'Indexer & Blocks', href: '/documents/indexer' },
     ],

@@ -4,7 +4,7 @@ export default function DocumentsPage() {
     <div className="space-y-6 sm:space-y-10">
       <section id="introduction" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
         <h1 className="text-2xl sm:text-3xl font-extrabold">DopelgangaChain Documentation</h1>
-        <p className="text-white/70 mt-2 text-base sm:text-lg">Solana’s twin. Native token: DOPEL. Build with familiar Solana tooling and deploy to DopelgangaChain.</p>
+        <p className="text-white/70 mt-2 text-base sm:text-lg">Solana’s twin. Native token: DOPE. Build with familiar Solana tooling and deploy to DopelgangaChain.</p>
       </section>
 
       <section id="quickstart" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
@@ -12,7 +12,7 @@ export default function DocumentsPage() {
         <ol className="list-decimal pl-5 text-white/80 mt-2 space-y-1 text-sm sm:text-base">
           <li>Install Solana CLI and your wallet of choice.</li>
           <li>Point your RPC to <code>https://dopelgangachain.dev</code>.</li>
-          <li>Deploy your program or start interacting with DOPEL-native dApps.</li>
+          <li>Deploy your program or start interacting with DOPE-native dApps.</li>
         </ol>
       </section>
 

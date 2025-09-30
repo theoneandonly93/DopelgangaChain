@@ -118,12 +118,15 @@ app.get('/api/stats', async (req, res) => {
     let totalRewards = memoryValidatorRewards.reduce((s, r) => s + Number(r.amount || 0), 0);
     let rewardPerBlock = memoryValidatorRewards.length > 0 ? Number(memoryValidatorRewards[memoryValidatorRewards.length - 1].amount || 0) : 0;
     if (dbEnabled) {
-      const { data: mintRows, error: mintError } = await supabase
+      const { data: txRows, error: txErr } = await supabase
         .from('dopel_transactions')
-        .select('amount')
-        .eq('type', 'Mint');
-      if (mintError) throw mintError;
-      dopelSupply = (mintRows || []).reduce((sum, row) => sum + Number(row.amount), 0);
+        .select('amount, type');
+      if (txErr) throw txErr;
+      if (Array.isArray(txRows)) {
+        const minted = txRows.filter(r => String(r.type) === 'Mint').reduce((s, r) => s + Number(r.amount || 0), 0);
+        const burned = txRows.filter(r => String(r.type) === 'Burn').reduce((s, r) => s + Number(r.amount || 0), 0);
+        dopelSupply = (minted - burned) / 1e9; // human units
+      }
 
       const { data: blockRows, error: blockError } = await supabase
         .from('dopel_blocks')
@@ -146,6 +149,15 @@ app.get('/api/stats', async (req, res) => {
       if (lastErr) throw lastErr;
       rewardPerBlock = Number(lastReward?.[0]?.amount || 0);
     }
+
+    // Live supply via RPC if configured
+    try {
+      if (WATCH_MINT) {
+        const sup = await connection.getTokenSupply(new PublicKey(WATCH_MINT));
+        // Return human units for display
+        dopelSupply = Number(sup.value.uiAmount || dopelSupply);
+      }
+    } catch (_) { /* ignore and keep DB value */ }
 
     res.json({
       dopelSupply,

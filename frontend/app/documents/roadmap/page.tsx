@@ -15,7 +15,7 @@ export default function Roadmap() {
           <h3>Phase 1 — Devnet</h3>
           <ul>
             <li>Public RPC endpoint</li>
-            <li>Faucet for DOPEL test funds</li>
+            <li>Faucet for DOPE test funds</li>
             <li>Explorer alpha and indexer (virtual blocks)</li>
           </ul>
           <h3>Phase 2 — Mainnet Beta</h3>

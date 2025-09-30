@@ -3,6 +3,8 @@ import { Card } from '../components/Card';
 import { CopyButton } from '../components/CopyButton';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { SITE } from '@/utils/site';
 
 // Pull program id from env for display/copy
 const GENESIS_PROGRAM_ID = process.env.NEXT_PUBLIC_PROGRAM_ID || 'HAzZhRcVrrFWYU9K4nWCSvpgLLcMSb9GZRfrcs3bYfDP';
@@ -14,7 +16,7 @@ export default function Home() {
         <div className="mx-auto mb-3 size-12 rounded-xl bg-dopel-500/15 border border-dopel-500/30 grid place-items-center transition-transform duration-300 hover:rotate-6 hover:scale-105">
           <Image src="/dopel.svg" alt="DopelgangaChain" width={28} height={28} className="pointer-events-none select-none" />
         </div>
-        <div className="text-xs tracking-widest text-white/70">DOPELGANGACHAIN</div>
+            <div className="text-xs tracking-widest text-white/70">{SITE.name.toUpperCase()}</div>
         <h1 className="mt-2 text-4xl md:text-6xl font-black tracking-tight leading-tight">
           SOLANA'S TWIN — BUILT FOR SPEED
         </h1>
@@ -27,12 +29,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="network" className="grid md:grid-cols-4 gap-5 mb-12">
-        <Card className="shadow-card text-center"><div className="text-2xl font-extrabold">65,000+</div><div className="text-white/60 text-sm">TPS</div></Card>
-        <Card className="shadow-card text-center"><div className="text-2xl font-extrabold">400ms</div><div className="text-white/60 text-sm">Slot Time</div></Card>
-        <Card className="shadow-card text-center"><div className="text-2xl font-extrabold">$0.00025</div><div className="text-white/60 text-sm">TX Cost</div></Card>
-        <Card className="shadow-card text-center"><div className="text-2xl font-extrabold">99.9%</div><div className="text-white/60 text-sm">Uptime</div></Card>
-      </section>
+      {dynamic(() => import('../components/NetworkStats'), { ssr: false })({})}
 
       <section id="rpc" className="glass rounded-3xl border border-white/5 p-6 md:p-8 mb-12">
   <h3 className="text-xl font-extrabold">RPC Information</h3>
@@ -41,10 +38,10 @@ export default function Home() {
           <Card className="shadow-card text-left">
             <div className="text-xs text-white/60">RPC URL</div>
             <div className="font-mono mt-1 text-white/90 break-all overflow-x-auto whitespace-pre-wrap max-w-full" style={{wordBreak: 'break-all'}}>
-              https://dopel-rpc.dopelganga.workers.dev
+              {SITE.rpc.http}
             </div>
             <div className="mt-3 flex gap-2">
-              <CopyButton value="https://dopel-rpc.dopelganga.workers.dev" label="Copy URL" className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30" />
+              <CopyButton value={SITE.rpc.http} label="Copy URL" className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30" />
               {/* TODO: Replace with live explorer link when available */}
             </div>
           </Card>

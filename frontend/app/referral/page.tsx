@@ -57,9 +57,29 @@ export default function ReferralPage() {
   };
 
   return (
-    <div className="max-w-xl mx-auto py-8">
-      <h1 className="text-2xl font-bold mb-4">Bind Referral</h1>
-      <div className="glass rounded-xl p-4 space-y-4">
+    <div className="max-w-6xl mx-auto py-8 space-y-6">
+      <h1 className="text-2xl font-bold mb-4">Referral</h1>
+      {/* Info cards */}
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="glass rounded-xl p-4 space-y-2 border border-white/10">
+          <h2 className="text-lg font-semibold">How referrals work</h2>
+          <ul className="list-disc pl-5 text-sm text-white/80">
+            <li>You can bind a single inviter to your wallet.</li>
+            <li>The reward is paid in $DOPE to the inviter’s token account.</li>
+            <li>Make sure the inviter address is valid; this is permanent.</li>
+          </ul>
+        </div>
+        <div className="glass rounded-xl p-4 space-y-2 border border-white/10">
+          <h2 className="text-lg font-semibold">Before you begin</h2>
+          <ul className="list-disc pl-5 text-sm text-white/80">
+            <li>Connect your wallet on the correct network.</li>
+            <li>Have a small amount of $DOPE for fees and reward (if sending).</li>
+            <li>Inviter will receive the reward instantly after binding.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="glass rounded-xl p-4 space-y-4 max-w-xl">
         <label className="block text-sm">Inviter Address</label>
         <input value={inviter} onChange={(e)=>setInviter(e.target.value)}
           placeholder="Enter inviter public key"
