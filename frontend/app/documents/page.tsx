@@ -11,7 +11,7 @@ export default function DocumentsPage() {
         <h2 className="text-xl sm:text-2xl font-bold">Quickstart</h2>
         <ol className="list-decimal pl-5 text-white/80 mt-2 space-y-1 text-sm sm:text-base">
           <li>Install Solana CLI and your wallet of choice.</li>
-          <li>Point your RPC to <code>https://dopelgangachain.dev</code>.</li>
+          <li>Point your RPC to <code>https://dopel-rpc.dopelganga.workers.dev</code>.</li>
           <li>Deploy your program or start interacting with DOPE-native dApps.</li>
         </ol>
       </section>
@@ -20,8 +20,8 @@ export default function DocumentsPage() {
         <h2 className="text-xl sm:text-2xl font-bold">Network & RPC</h2>
         <p className="text-white/80 mt-2 text-sm sm:text-base">Use our RPC endpoints to connect your apps and tooling.</p>
         <div className="mt-3 text-white/70 text-xs sm:text-base">
-          <div>Mainnet RPC: <code>https://dopelgangachain.dev</code></div>
-          <div>Genesis Program: <code>Co4692bPPQXAqqxSLAeTTvF1bnhY26FUWt2YuWQPBgfU</code></div>
+          <div>Mainnet RPC: <code>https://dopel-rpc.dopelganga.workers.dev</code></div>
+          <div>Genesis Program: <code>HAzZhRcVrrFWYU9K4nWCSvpgLLcMSb9GZRfrcs3bYfDP</code></div>
         </div>
       </section>
 

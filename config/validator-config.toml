@@ -1,0 +1,6 @@
+[validator]
+identity = "/home/vscode/validator-keypair.json"
+ledger_dir = "/home/vscode/dopel-ledger"
+rpc_url = "https://dopel-rpc.dopelganga.workers.dev"
+reward_per_block = 10
+

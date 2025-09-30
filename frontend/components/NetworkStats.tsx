@@ -9,7 +9,7 @@ export default function NetworkStats() {
   const height = typeof stats?.blockHeight === 'number' && stats.blockHeight > 0 ? stats.blockHeight : '—';
   const supply = typeof stats?.dopelSupply === 'number' && stats.dopelSupply > 0 ? stats.dopelSupply.toLocaleString() : '—';
   return (
-    <section id="network" className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-12">
+    <section id="network" className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 md:mb-12">
       <div className="glass shadow-card text-center rounded-xl p-4"><div className="text-2xl font-extrabold">{tps}</div><div className="text-white/60 text-sm">TPS</div></div>
       <div className="glass shadow-card text-center rounded-xl p-4"><div className="text-2xl font-extrabold">{height}</div><div className="text-white/60 text-sm">Block Height</div></div>
       <div className="glass shadow-card text-center rounded-xl p-4"><div className="text-2xl font-extrabold">{supply}</div><div className="text-white/60 text-sm">$DOPE Supply</div></div>
@@ -17,4 +17,3 @@ export default function NetworkStats() {
     </section>
   );
 }
-

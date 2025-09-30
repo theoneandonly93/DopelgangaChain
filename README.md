@@ -80,3 +80,52 @@ Original JSON is mirrored to `frontend/public/metadata/dopelganga.json` (serve v
 - Add gateway availability checker.
 - Add automated integrity CI job comparing on-chain URI content hash vs repo.
 - Add Arweave mirror for redundancy.
+
+## Run a DopelgangaChain Validator
+
+1) Install Solana CLI
+
+```
+sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
+```
+
+2) Point CLI to the Dopel RPC
+
+```
+solana config set --url https://dopel-rpc.dopelganga.workers.dev
+```
+
+3) Create identity and $DOPE account
+
+```
+solana-keygen new -o ~/validator-keypair.json
+solana address -k ~/validator-keypair.json
+export DOP_MINT=$NEXT_PUBLIC_DOP_MINT
+export VALIDATOR_PUBKEY=$(solana address -k ~/validator-keypair.json)
+spl-token create-account $DOP_MINT --owner $VALIDATOR_PUBKEY
+```
+
+4) Start a validator
+
+```
+solana-validator \
+  --identity ~/validator-keypair.json \
+  --ledger ~/dopel-ledger \
+  --rpc-port 8899 \
+  --entrypoint entrypoint.mainnet-beta.solana.com:8001 \
+  --dynamic-port-range 8000-8010 \
+  --full-rpc-api \
+  --limit-ledger-size
+```
+
+5) Claim a block reward (from `frontend/`)
+
+```
+RPC_URL=https://dopel-rpc.dopelganga.workers.dev \
+PROGRAM_ID=$NEXT_PUBLIC_PROGRAM_ID \
+DOP_MINT=$NEXT_PUBLIC_DOP_MINT \
+ANCHOR_WALLET=/path/to/id.json \
+npx ts-node scripts/mintReward.ts
+```
+
+Note: Request to be added to the validator set via governance before claiming rewards.

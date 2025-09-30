@@ -140,3 +140,13 @@ h1,h2,h3 {
   background: rgba(180,255,10,0.16);
   border-color: rgba(180,255,10,0.45);
 }
+
+/* Tighten spacing on small screens for crisper layout */
+@media (max-width: 640px) {
+  .table-scan thead th { padding: 8px 10px; font-size: 11px; }
+  .table-scan tbody td { padding: 10px; }
+  .scan-search { padding: 4px; }
+  .scan-search-input { padding: 10px 14px; }
+  .scan-search-btn { padding: 8px 12px; }
+  .pill { padding: 6px 12px; }
+}

@@ -28,6 +28,7 @@ export function Nav() {
         <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">
           <Link href="/dashboard" className="hover:text-white">Dashboard</Link>
           <Link href="/explorer" className="hover:text-white font-bold">Explorer</Link>
+          <Link href="/validators" className="hover:text-white">Validators</Link>
           <Link href="/airdrop" className="hover:text-white">Airdrop</Link>
           {/* <Link href="/blocks" className="hover:text-white">Blocks</Link> */}
           <Link href="/launch-token" className="hover:text-white">Launch Token</Link>
@@ -38,22 +39,36 @@ export function Nav() {
           <Link href="/documents" className="hover:text-white">Docs</Link>
           {/* <Link href="/pitchdeck" className="hover:text-white font-bold">Pitch Deck</Link> */}
         </nav>
-        {/* Mobile menu toggle (text link) */}
+        {/* Menu toggle (hamburger icon) */}
         <button
-          className="md:hidden ml-2 px-2 py-1 text-sm text-white/80 underline underline-offset-4 decoration-white/40 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/40 rounded"
+          className="ml-2 p-2 text-white/90 hover:text-white rounded focus:outline-none focus:ring-2 focus:ring-white/40"
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           onClick={() => setMenuOpen((v) => !v)}
         >
-          {menuOpen ? 'Close' : 'Menu'}
+          {menuOpen ? (
+            // Close (X) icon
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          ) : (
+            // Hamburger icon
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          )}
         </button>
-        {/* Collapsible mobile nav */}
+        {/* Collapsible dropdown nav */}
         {menuOpen && (
-          <nav className="flex md:hidden flex-col gap-2 absolute left-0 right-0 top-16 bg-[rgba(10,10,10,0.98)] px-4 py-3 border-b border-white/10 z-50 shadow-lg animate-fade-in">
+          <nav className="flex flex-col gap-2 absolute left-0 right-0 top-16 bg-[rgba(10,10,10,0.98)] px-4 py-3 border-b border-white/10 z-50 shadow-lg animate-fade-in">
             <div className="mb-2">
               <WalletMultiButton className="w-full !justify-center !bg-white !text-black !border !border-white/20 !rounded-lg !h-10 hover:!bg-white/90" />
             </div>
             <Link href="/dashboard" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Dashboard</Link>
             <Link href="/explorer" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-bold" onClick={() => setMenuOpen(false)}>Explorer</Link>
+            <Link href="/validators" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Validators</Link>
             <Link href="/airdrop" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Airdrop</Link>
             {/* <Link href="/blocks" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Blocks</Link> */}
             <Link href="/launch-token" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Launch Token</Link>
@@ -62,9 +77,7 @@ export function Nav() {
             {/* <Link href="/pitchdeck" className="block w-full text-left py-2 px-3 rounded bg-dopel-500 text-white font-bold" onClick={() => setMenuOpen(false)}>Pitch Deck</Link> */}
           </nav>
         )}
-        <div className="flex items-center gap-3">
-          <WalletMultiButton className="!bg-white !text-black !border !border-white/20 !rounded-lg !px-4 !h-9 !min-h-0 hover:!bg-white/90" />
-        </div>
+        {/* Wallet button moved into dropdown */}
       </div>
     </header>
   );

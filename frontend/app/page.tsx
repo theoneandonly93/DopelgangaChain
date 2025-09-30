@@ -13,8 +13,8 @@ const NetworkStats = dynamic(() => import('../components/NetworkStats'), { ssr: 
 
 export default function Home() {
   return (
-    <div className="max-w-6xl mx-auto py-12">
-  <section className="rounded-3xl border border-white/10 p-8 md:p-12 mb-12 glass text-center shadow-card">
+    <div className="max-w-6xl mx-auto py-8 md:py-12">
+  <section className="rounded-3xl border border-white/10 p-6 md:p-12 mb-8 md:mb-12 glass text-center shadow-card">
         <div className="mx-auto mb-3 size-12 rounded-xl bg-dopel-500/15 border border-dopel-500/30 grid place-items-center transition-transform duration-300 hover:rotate-6 hover:scale-105">
           <Image src="/dopel.svg" alt="DopelgangaChain" width={28} height={28} className="pointer-events-none select-none" />
         </div>
@@ -25,7 +25,7 @@ export default function Home() {
         <p className="mt-4 text-white/80 max-w-2xl mx-auto">
           DopelgangaChain mirrors Solana’s battle-tested architecture with native token DOPE. Same speed and security — your apps run on Solana’s twin.
         </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <div className="mt-6 md:mt-8 flex flex-wrap justify-center gap-3">
           <Link href="#network" className="px-5 py-2.5 rounded-xl bg-dopel-500 text-black font-bold hover:bg-dopel-400 shadow-card">Network Status</Link>
           <Link href="#faucet" className="px-5 py-2.5 rounded-xl border border-white/10 hover:border-white/30 bg-white/10 font-semibold">Faucet</Link>
         </div>
@@ -33,10 +33,10 @@ export default function Home() {
 
       <NetworkStats />
 
-      <section id="rpc" className="glass rounded-3xl border border-white/5 p-6 md:p-8 mb-12">
+      <section id="rpc" className="glass rounded-3xl border border-white/5 p-5 md:p-8 mb-10 md:mb-12">
   <h3 className="text-xl font-extrabold">RPC Information</h3>
   <p className="text-white/75 mt-2">Connect to the DopelgangaChain network</p>
-        <div className="mt-4 grid md:grid-cols-2 gap-4">
+        <div className="mt-3 md:mt-4 grid md:grid-cols-2 gap-4">
           <Card className="shadow-card text-left">
             <div className="text-xs text-white/60">RPC URL</div>
             <div className="font-mono mt-1 text-white/90 break-all overflow-x-auto whitespace-pre-wrap max-w-full" style={{wordBreak: 'break-all'}}>
@@ -55,33 +55,33 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="features" className="mb-12">
+      <section id="features" className="mb-10 md:mb-12">
         <h3 className="text-2xl font-extrabold mb-4">Why DopelgangaChain?</h3>
-        <div className="grid md:grid-cols-4 gap-5">
+        <div className="grid md:grid-cols-4 gap-4 md:gap-5">
           <Card className="shadow-card"><h4 className="font-semibold">Lightning Fast</h4><p className="text-sm text-white/70 mt-2">Meme transactions at the speed of light with Solana compatibility</p></Card>
           <Card className="shadow-card"><h4 className="font-semibold">Secure & Reliable</h4><p className="text-sm text-white/70 mt-2">Built on Solana’s twin architecture with native DOPE token</p></Card>
-          <Card className="shadow-card"><h4 className="font-semibold">Community Driven</h4><p className="text-sm text-white/70 mt-2">Governed by the meme community for maximum banana potential</p></Card>
+          <Card className="shadow-card"><h4 className="font-semibold">Community Driven</h4><p className="text-sm text-white/70 mt-2">Governed by the meme community for maximum DOPE potential</p></Card>
           <Card className="shadow-card"><h4 className="font-semibold">Developer Friendly</h4><p className="text-sm text-white/70 mt-2">Full Solana compatibility — deploy once, run on the twin</p></Card>
         </div>
       </section>
 
-      <section id="ecosystem" className="mb-12">
+      <section id="ecosystem" className="mb-10 md:mb-12">
         <h3 className="text-2xl font-bold mb-4 text-center">Ecosystem</h3>
-        <div className="grid md:grid-cols-4 gap-5">
+        <div className="grid md:grid-cols-4 gap-4 md:gap-5">
           {/* DEX, Wallet, Bridge, Tools: Show only if live. Remove placeholders. */}
         </div>
       </section>
 
-      <section id="roadmap" className="mb-12">
+      <section id="roadmap" className="mb-10 md:mb-12">
         <h3 className="text-2xl font-bold mb-4 text-center">Roadmap</h3>
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-3 gap-4 md:gap-5">
           <Card className="shadow-card"><h4 className="font-semibold">Phase 1</h4><p className="text-sm text-white/70 mt-2">Mainnet launch, RPC endpoints, explorer</p></Card>
           <Card className="shadow-card"><h4 className="font-semibold">Phase 2</h4><p className="text-sm text-white/70 mt-2">Ecosystem growth, DOPE integrations, tooling</p></Card>
           <Card className="shadow-card"><h4 className="font-semibold">Phase 3</h4><p className="text-sm text-white/70 mt-2">Cross-chain bridge, governance, scaling</p></Card>
         </div>
       </section>
 
-      <section id="faucet" className="glass rounded-3xl border border-white/5 p-6 md:p-8 mb-12 text-center">
+      <section id="faucet" className="glass rounded-3xl border border-white/5 p-5 md:p-8 mb-10 md:mb-12 text-center">
         <h3 className="text-2xl font-bold">Faucet</h3>
         <p className="text-white/70 mt-2">Get DOPE test tokens to try the network</p>
         <div className="mt-4 flex justify-center gap-3">
@@ -90,7 +90,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="py-10 text-center text-white/50 text-sm">
+      <footer className="py-6 md:py-10 text-center text-white/50 text-sm">
         © {new Date().getFullYear()} DopelgangaChain — Solana’s twin. Native token: DOPE
       </footer>
     </div>
