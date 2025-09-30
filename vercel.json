@@ -1,8 +1,8 @@
 {
   "version": 2,
   "framework": "nextjs",
-  "installCommand": "cd frontend && npm ci",
-  "buildCommand": "cd frontend && npm run build",
+  "installCommand": "npm --prefix frontend install --include=dev --no-audit --no-fund",
+  "buildCommand": "npm --prefix frontend run build",
   "outputDirectory": "frontend/.next",
   "env": {
     "NEXT_TELEMETRY_DISABLED": "1"
