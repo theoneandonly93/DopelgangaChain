@@ -1,13 +1,21 @@
 
 "use client";
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { SITE } from '@/utils/site';
+import { LocalDopeWalletAdapter } from './adapters/LocalDopeWalletAdapter';
+import bs58 from 'bs58';
 require('@solana/wallet-adapter-react-ui/styles.css');
 
 export function WalletWrapper({ children }: { children: ReactNode }) {
+  const [version, setVersion] = useState(0);
+  useEffect(() => {
+    const onUpdate = () => setVersion((v) => v + 1);
+    window.addEventListener('dopewallet:updated', onUpdate);
+    return () => window.removeEventListener('dopewallet:updated', onUpdate);
+  }, []);
   // Use same-origin proxy in browser to avoid CORS; build absolute URL for web3.js
   const endpoint = useMemo(() => {
     const forceDirect = process.env.NEXT_PUBLIC_FORCE_DIRECT_RPC === '1';
@@ -22,7 +30,21 @@ export function WalletWrapper({ children }: { children: ReactNode }) {
     const ws = SITE.rpc.ws || '';
     return ws.startsWith('ws') ? ws : undefined;
   }, []);
-  const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
+  const wallets = useMemo(() => {
+    const list: any[] = [new PhantomWalletAdapter()];
+    // If a Dope Wallet is configured in localStorage, include the adapter
+    if (typeof window !== 'undefined') {
+      try {
+        const skb58 = localStorage.getItem('dopeWallet:secretKey');
+        if (skb58) {
+          // Verify decodable; adapter will lazy-load again on connect
+          bs58.decode(skb58);
+          list.push(new LocalDopeWalletAdapter());
+        }
+      } catch {}
+    }
+    return list;
+  }, [version]);
   return (
     <ConnectionProvider endpoint={endpoint} config={{ wsEndpoint }}>
       <WalletProvider wallets={wallets} autoConnect>

@@ -14,6 +14,7 @@ const DEFAULT_ALLOWED = [
   'https://dopelganga.com',
   'https://www.dopelgangachain.xyz',
   'https://dopelgangachain.xyz',
+  
   'http://localhost:3000',
 ]
 
