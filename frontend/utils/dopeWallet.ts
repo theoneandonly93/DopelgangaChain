@@ -1,7 +1,8 @@
 'use client';
 
 import { Keypair, PublicKey } from '@solana/web3.js';
-import { generateMnemonic, mnemonicToSeedSync, wordlists } from '@scure/bip39';
+import { generateMnemonic, mnemonicToSeedSync } from '@scure/bip39';
+import { wordlist as english } from '@scure/bip39/wordlists/english';
 import { hmac } from '@noble/hashes/hmac';
 import { sha512 } from '@noble/hashes/sha512';
 import bs58 from 'bs58';
@@ -67,7 +68,6 @@ export type GeneratedWallet = {
 };
 
 export function generateDopeWallet(): GeneratedWallet {
-  const english = wordlists.english;
   const mnemonic = generateMnemonic(english, 128); // 12 words
   const seed = mnemonicToSeedSync(mnemonic); // 64 bytes
   const path = "m/44'/501'/0'/0'"; // Solana default
@@ -105,4 +105,3 @@ export function loadDopeWalletFromStorage(): {
     return { publicKey: null, secretKey: null };
   }
 }
-
