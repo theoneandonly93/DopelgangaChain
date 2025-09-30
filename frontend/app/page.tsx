@@ -8,6 +8,8 @@ import { SITE } from '@/utils/site';
 
 // Pull program id from env for display/copy
 const GENESIS_PROGRAM_ID = process.env.NEXT_PUBLIC_PROGRAM_ID || 'HAzZhRcVrrFWYU9K4nWCSvpgLLcMSb9GZRfrcs3bYfDP';
+// Client-only live stats component
+const NetworkStats = dynamic(() => import('../components/NetworkStats'), { ssr: false });
 
 export default function Home() {
   return (
@@ -29,7 +31,7 @@ export default function Home() {
         </div>
       </section>
 
-      {dynamic(() => import('../components/NetworkStats'), { ssr: false })({})}
+      <NetworkStats />
 
       <section id="rpc" className="glass rounded-3xl border border-white/5 p-6 md:p-8 mb-12">
   <h3 className="text-xl font-extrabold">RPC Information</h3>
