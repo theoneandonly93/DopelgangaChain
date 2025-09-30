@@ -32,7 +32,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <div className="px-6 md:px-10">{children}</div>
             <footer className="py-6 md:py-10 text-center text-white/50 text-sm">
               © {new Date().getFullYear()} DopelgangaChain — Solana’s twin. Native token: DOPE •{' '}
-              <Link href="/documents/validator" className="underline hover:text-white">Validator Docs</Link>
+              <Link href="/documents/validator" className="underline hover:text-white">Validator Docs</Link>{' '}•{' '}
+              <Link href="/documents/staking" className="underline hover:text-white">Staking Docs</Link>
             </footer>
           </WalletWrapper>
         </ToastProvider>

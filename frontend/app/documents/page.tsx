@@ -25,6 +25,15 @@ export default function DocumentsPage() {
         </div>
       </section>
 
+      <section id="staking" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
+        <h2 className="text-xl sm:text-2xl font-bold">Staking</h2>
+        <p className="text-white/80 mt-2 text-sm sm:text-base">Stake $DOPE with flexible lock durations to boost rewards.</p>
+        <div className="mt-3 flex flex-wrap gap-2 text-sm">
+          <a className="px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30" href="/documents/staking">Staking Docs</a>
+          <a className="px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30" href="/staking">Stake in App</a>
+        </div>
+      </section>
+
       <section id="tokenomics" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
         <h2 className="text-xl sm:text-2xl font-bold">Token Strategy</h2>
         <p className="text-white/80 mt-2 text-sm sm:text-base">Draft plan for DOPE supply, distribution and utility.</p>

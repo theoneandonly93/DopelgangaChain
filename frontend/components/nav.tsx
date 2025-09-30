@@ -29,6 +29,7 @@ export function Nav() {
           <Link href="/dashboard" className="hover:text-white">Dashboard</Link>
           <Link href="/explorer" className="hover:text-white font-bold">Explorer</Link>
           <Link href="/validators" className="hover:text-white">Validators</Link>
+          <Link href="/staking" className="hover:text-white">Staking</Link>
           <Link href="/airdrop" className="hover:text-white">Airdrop</Link>
           {/* <Link href="/blocks" className="hover:text-white">Blocks</Link> */}
           <Link href="/launch-token" className="hover:text-white">Launch Token</Link>
@@ -63,12 +64,14 @@ export function Nav() {
         {/* Collapsible dropdown nav */}
         {menuOpen && (
           <nav className="flex flex-col gap-2 absolute left-0 right-0 top-16 bg-[rgba(10,10,10,0.98)] px-4 py-3 border-b border-white/10 z-50 shadow-lg animate-fade-in">
-            <div className="mb-2">
-              <WalletMultiButton className="w-full !justify-center !bg-white !text-black !border !border-white/20 !rounded-lg !h-10 hover:!bg-white/90" />
+            <div className="mb-2 flex gap-2">
+              <WalletMultiButton className="flex-1 !justify-center !bg-white !text-black !border !border-white/20 !rounded-lg !h-10 hover:!bg-white/90" />
+              <Link href="/staking" onClick={() => setMenuOpen(false)} className="px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-sm hover:border-white/40">Staking</Link>
             </div>
             <Link href="/dashboard" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Dashboard</Link>
             <Link href="/explorer" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-bold" onClick={() => setMenuOpen(false)}>Explorer</Link>
             <Link href="/validators" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Validators</Link>
+            <Link href="/staking" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Staking</Link>
             <Link href="/airdrop" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Airdrop</Link>
             {/* <Link href="/blocks" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Blocks</Link> */}
             <Link href="/launch-token" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Launch Token</Link>
