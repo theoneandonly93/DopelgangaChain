@@ -16,6 +16,23 @@ export default function DocumentsPage() {
         </ol>
       </section>
 
+      <section id="validators" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
+        <h2 className="text-xl sm:text-2xl font-bold">Validators</h2>
+        <p className="text-white/80 mt-2 text-sm sm:text-base">Run a node and earn $DOPE.</p>
+        <div className="mt-3 flex flex-wrap gap-2 text-sm">
+          <a className="px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30" href="/documents/validator">Dopelganga Validator Docs</a>
+          <a className="px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30" href="/validators">Validators Leaderboard</a>
+        </div>
+      </section>
+
+      <section id="tokenomics" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
+        <h2 className="text-xl sm:text-2xl font-bold">Token Strategy</h2>
+        <p className="text-white/80 mt-2 text-sm sm:text-base">Draft plan for DOPE supply, distribution and utility.</p>
+        <div className="mt-3 flex flex-wrap gap-2 text-sm">
+          <a className="px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30" href="/documents/tokenomics">Open Draft</a>
+        </div>
+      </section>
+
       <section id="network" className="glass rounded-2xl p-4 sm:p-6 border border-white/10">
         <h2 className="text-xl sm:text-2xl font-bold">Network & RPC</h2>
         <p className="text-white/80 mt-2 text-sm sm:text-base">Use our RPC endpoints to connect your apps and tooling.</p>

@@ -153,95 +153,39 @@ export default function Dashboard() {
           </div>
         </section>
 
-        {/* Validator Tools: Encourage users to run a validator */}
+        {/* Validator Tools: point to docs (keep dashboard crisp) */}
         <section className="mb-8">
           <div className="glass rounded-xl p-4 md:p-6 border border-white/10">
             <div className="flex items-center justify-between flex-wrap gap-3">
               <h2 className="text-xl font-bold">Become a Validator</h2>
-              <span className="text-xs px-2 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300">New</span>
+              <span className="text-xs px-2 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300">Docs</span>
             </div>
             <p className="text-white/75 mt-2 text-sm">
-              Anyone can help secure DopelgangaChain and earn $DOPE. It takes minutes to get started. Follow these steps on a server or your machine.
+              Ready to run a node and earn $DOPE? Read the Dopelganga Validator guide and follow the quickstart to get online.
             </p>
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="glass rounded-lg p-3 border border-white/10">
-                <div className="text-xs text-white/60 mb-1">1) Set RPC</div>
-                <pre className="text-xs bg-black/30 p-3 rounded border border-white/10 overflow-x-auto">
-{`solana config set --url ${SITE.rpc.http}`}
-                </pre>
-                <CopyButton value={`solana config set --url ${SITE.rpc.http}`} className="mt-2 px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30 text-sm" label="Copy" />
-              </div>
-              <div className="glass rounded-lg p-3 border border-white/10">
-                <div className="text-xs text-white/60 mb-1">2) Create identity</div>
-                <pre className="text-xs bg-black/30 p-3 rounded border border-white/10 overflow-x-auto">
-{`solana-keygen new -o ~/validator-keypair.json
-solana address -k ~/validator-keypair.json`}
-                </pre>
-                <CopyButton value={`solana-keygen new -o ~/validator-keypair.json
-solana address -k ~/validator-keypair.json`} className="mt-2 px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30 text-sm" label="Copy" />
-              </div>
-              <div className="glass rounded-lg p-3 border border-white/10">
-                <div className="text-xs text-white/60 mb-1">3) Create your $DOPE account</div>
-                <pre className="text-xs bg-black/30 p-3 rounded border border-white/10 overflow-x-auto">
-{`export DOP_MINT=${process.env.NEXT_PUBLIC_DOP_MINT || ''}
-export VALIDATOR_PUBKEY=$(solana address -k ~/validator-keypair.json)
-spl-token create-account $DOP_MINT --owner $VALIDATOR_PUBKEY`}
-                </pre>
-                <CopyButton value={`export DOP_MINT=${process.env.NEXT_PUBLIC_DOP_MINT || ''}
-export VALIDATOR_PUBKEY=$(solana address -k ~/validator-keypair.json)
-spl-token create-account $DOP_MINT --owner $VALIDATOR_PUBKEY`} className="mt-2 px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30 text-sm" label="Copy" />
-              </div>
-              <div className="glass rounded-lg p-3 border border-white/10">
-                <div className="text-xs text-white/60 mb-1">4) Start the validator</div>
-                <pre className="text-xs bg-black/30 p-3 rounded border border-white/10 overflow-x-auto">
-{`solana-validator \
-  --identity ~/validator-keypair.json \
-  --ledger ~/dopel-ledger \
-  --rpc-port 8899 \
-  --entrypoint entrypoint.mainnet-beta.solana.com:8001 \
-  --dynamic-port-range 8000-8010 \
-  --full-rpc-api \
-  --limit-ledger-size`}
-                </pre>
-                <CopyButton value={`solana-validator \
-  --identity ~/validator-keypair.json \
-  --ledger ~/dopel-ledger \
-  --rpc-port 8899 \
-  --entrypoint entrypoint.mainnet-beta.solana.com:8001 \
-  --dynamic-port-range 8000-8010 \
-  --full-rpc-api \
-  --limit-ledger-size`} className="mt-2 px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30 text-sm" label="Copy" />
-              </div>
-            </div>
-            <div className="mt-4 text-xs text-white/70">
-              Tip: After you’re running, request to be added to the validator set via governance, then claim block rewards with our script.
-            </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              <Link href="/documents/quickstart" className="px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30 text-sm">Read Quickstart</Link>
-              <a href="https://docs.solana.com/running-validator/validator-start" target="_blank" rel="noreferrer" className="px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30 text-sm">Solana Validator Docs</a>
+              <Link href="/documents/validator" className="px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30 text-sm">Validator Docs</Link>
+              <Link href="/documents/quickstart" className="px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30 text-sm">Quickstart</Link>
+              <Link href="/validators" className="px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30 text-sm">Validators Leaderboard</Link>
             </div>
           </div>
         </section>
 
-        {/* Claim Reward helper */}
+        {/* Claim Reward helper (repo-free) */}
         <section className="mb-8">
           <div className="glass rounded-xl p-4 md:p-6 border border-white/10">
             <h3 className="text-lg font-bold">Claim a Block Reward</h3>
-            <p className="text-white/75 mt-2 text-sm">Run this from your machine (needs Node 18+, ts-node). It mints one validator reward to your $DOPE account.</p>
+            <p className="text-white/75 mt-2 text-sm">Use the Validators page with your connected wallet, or use any Anchor client with the program ID and public IDL (published soon).</p>
             <pre className="text-xs bg-black/30 p-3 rounded border border-white/10 overflow-x-auto mt-3">
-{`cd frontend
+{`# Wallet flow: App → Validators → Connect → Claim
+
+# CLI (advanced): set env and use your own Anchor client
 RPC_URL=${SITE.rpc.http}
 PROGRAM_ID=${process.env.NEXT_PUBLIC_PROGRAM_ID || ''}
 DOP_MINT=${process.env.NEXT_PUBLIC_DOP_MINT || ''}
-ANCHOR_WALLET=/path/to/your/id.json \
-npx ts-node scripts/mintReward.ts`}
+IDL_URL=https://www.dopelganga.com/idl/dopelgangachain.json`}
             </pre>
-            <CopyButton
-              value={`cd frontend\nRPC_URL=${SITE.rpc.http}\nPROGRAM_ID=${process.env.NEXT_PUBLIC_PROGRAM_ID || ''}\nDOP_MINT=${process.env.NEXT_PUBLIC_DOP_MINT || ''}\nANCHOR_WALLET=/path/to/your/id.json \\\nnpx ts-node scripts/mintReward.ts`}
-              className="mt-2 px-3 py-1.5 rounded bg-white/10 border border-white/10 hover:border-white/30 text-sm"
-              label="Copy"
-            />
-            <div className="text-xs text-white/60 mt-2">Tip: Make sure your validator is added to the validator set via governance first.</div>
+            <div className="text-xs text-white/60 mt-2">Tip: Ensure your validator is added to the validator set via governance first.</div>
           </div>
         </section>
 

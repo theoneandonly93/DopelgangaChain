@@ -5,6 +5,7 @@ if (typeof window === 'undefined' && enableEmbeddedIndexer) {
   require('../utils/indexer');
 }
 import { ReactNode } from 'react';
+import Link from 'next/link';
 import { WalletWrapper } from '../components/wallet-wrapper';
 import { Nav } from '../components/nav';
 import { ToastProvider } from '../components/Toast';
@@ -29,6 +30,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Nav />
             <NetworkBanner />
             <div className="px-6 md:px-10">{children}</div>
+            <footer className="py-6 md:py-10 text-center text-white/50 text-sm">
+              © {new Date().getFullYear()} DopelgangaChain — Solana’s twin. Native token: DOPE •{' '}
+              <Link href="/documents/validator" className="underline hover:text-white">Validator Docs</Link>
+            </footer>
           </WalletWrapper>
         </ToastProvider>
       </body>

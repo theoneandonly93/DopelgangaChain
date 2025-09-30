@@ -32,13 +32,16 @@ spl-token create-account $DOP_MINT --owner $VALIDATOR_PUBKEY`}</pre>
   --limit-ledger-size`}</pre>
           </li>
           <li>
-            Claim a reward (from repo)
-            <pre className="mt-2 text-xs bg-black/30 p-3 rounded border border-white/10 overflow-x-auto">{`cd frontend
+            Claim a reward
+            <div className="mt-2 text-white/75 text-xs">Use the in‑app Validators page to claim with your connected wallet. For CLI users, use any Anchor client with the program ID and IDL (published soon).</div>
+            <pre className="mt-2 text-xs bg-black/30 p-3 rounded border border-white/10 overflow-x-auto">{`# Wallet flow: App → Validators → Connect → Claim
+
+# CLI flow (advanced)
 RPC_URL=https://dopel-rpc.dopelganga.workers.dev \
 PROGRAM_ID=$NEXT_PUBLIC_PROGRAM_ID \
 DOP_MINT=$NEXT_PUBLIC_DOP_MINT \
-ANCHOR_WALLET=/path/to/id.json \
-npx ts-node scripts/mintReward.ts`}</pre>
+IDL_URL=https://www.dopelganga.com/idl/dopelgangachain.json
+# (Run your own Anchor/Node client with these values)`}</pre>
           </li>
         </ol>
         <p className="text-white/70 text-xs mt-3">Request to be added to the validator set via governance before claiming rewards.</p>

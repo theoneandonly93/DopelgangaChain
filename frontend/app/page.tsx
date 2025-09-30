@@ -90,9 +90,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="py-6 md:py-10 text-center text-white/50 text-sm">
-        © {new Date().getFullYear()} DopelgangaChain — Solana’s twin. Native token: DOPE
-      </footer>
+      {/* Footer moved to global layout */}
     </div>
   );
 }
