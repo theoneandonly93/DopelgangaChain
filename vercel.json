@@ -4,9 +4,8 @@
   "buildCommand": "npm install --prefix frontend && npm run build --prefix frontend",
   "installCommand": "npm install --prefix frontend",
   "outputDirectory": "frontend/.next",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD frontend",
+  "ignoreCommand": "bash -lc 'git rev-parse --verify HEAD^ >/dev/null 2>&1 || exit 1; git diff --quiet HEAD^ HEAD -- frontend'",
   "env": {
     "NEXT_TELEMETRY_DISABLED": "1"
   }
 }
-
