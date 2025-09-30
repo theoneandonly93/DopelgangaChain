@@ -8,6 +8,18 @@ const withMDX = createMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  async rewrites() {
+    // When the request host is rpc.dopelgangachain.xyz, route everything to the RPC proxy
+    return [
+      {
+        source: '/:path*',
+        has: [
+          { type: 'host', value: 'rpc.dopelgangachain.xyz' },
+        ],
+        destination: '/api/rpc',
+      },
+    ];
+  },
   webpack: (config) => {
     config.resolve = config.resolve || {};
     config.resolve.fallback = config.resolve.fallback || {};

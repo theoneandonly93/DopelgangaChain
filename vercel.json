@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "buildCommand": "npm install --prefix frontend && npm run build --prefix frontend",
+  "installCommand": "npm install --prefix frontend",
+  "outputDirectory": "frontend/.next",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD frontend",
+  "env": {
+    "NEXT_TELEMETRY_DISABLED": "1"
+  }
+}
+

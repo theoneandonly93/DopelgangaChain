@@ -38,30 +38,20 @@ export function Nav() {
           <Link href="/documents" className="hover:text-white">Docs</Link>
           {/* <Link href="/pitchdeck" className="hover:text-white font-bold">Pitch Deck</Link> */}
         </nav>
-        {/* Mobile menu toggle button (door icon) */}
+        {/* Mobile menu toggle (text link) */}
         <button
-          className="md:hidden ml-2 p-2 rounded focus:outline-none focus:ring-2 focus:ring-dopel-500"
+          className="md:hidden ml-2 px-2 py-1 text-sm text-white/80 underline underline-offset-4 decoration-white/40 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/40 rounded"
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           onClick={() => setMenuOpen((v) => !v)}
         >
-          {/* Door icon SVG */}
-          {menuOpen ? (
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-dopel-500">
-              <rect x="5" y="4" width="14" height="16" rx="2" fill="currentColor" className="text-dopel-500/80" />
-              <rect x="9" y="10" width="2" height="2" rx="1" fill="#fff" />
-              <rect x="13" y="10" width="2" height="2" rx="1" fill="#fff" />
-              <rect x="11" y="16" width="2" height="2" rx="1" fill="#fff" />
-            </svg>
-          ) : (
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-dopel-500">
-              <rect x="5" y="4" width="14" height="16" rx="2" fill="currentColor" className="text-dopel-500/80" />
-              <rect x="11" y="16" width="2" height="2" rx="1" fill="#fff" />
-            </svg>
-          )}
+          {menuOpen ? 'Close' : 'Menu'}
         </button>
         {/* Collapsible mobile nav */}
         {menuOpen && (
           <nav className="flex md:hidden flex-col gap-2 absolute left-0 right-0 top-16 bg-[rgba(10,10,10,0.98)] px-4 py-3 border-b border-white/10 z-50 shadow-lg animate-fade-in">
+            <div className="mb-2">
+              <WalletMultiButton className="w-full !justify-center !bg-white !text-black !border !border-white/20 !rounded-lg !h-10 hover:!bg-white/90" />
+            </div>
             <Link href="/dashboard" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Dashboard</Link>
             <Link href="/explorer" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-bold" onClick={() => setMenuOpen(false)}>Explorer</Link>
             <Link href="/airdrop" className="block w-full text-left py-2 px-3 rounded bg-white/10 text-white font-semibold" onClick={() => setMenuOpen(false)}>Airdrop</Link>
@@ -73,7 +63,7 @@ export function Nav() {
           </nav>
         )}
         <div className="flex items-center gap-3">
-          <WalletMultiButton className="!bg-dopel-500 hover:!bg-dopel-400" />
+          <WalletMultiButton className="!bg-white !text-black !border !border-white/20 !rounded-lg !px-4 !h-9 !min-h-0 hover:!bg-white/90" />
         </div>
       </div>
     </header>

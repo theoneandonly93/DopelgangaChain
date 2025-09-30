@@ -5,20 +5,17 @@ if (typeof window === 'undefined' && enableEmbeddedIndexer) {
   require('../utils/indexer');
 }
 import { ReactNode } from 'react';
-import { Inter } from 'next/font/google';
 import { WalletWrapper } from '../components/wallet-wrapper';
 import { Nav } from '../components/nav';
 import { ToastProvider } from '../components/Toast';
 import { NetworkBanner } from '../components/NetworkBanner';
 
-export const metadata = { title: 'DopelgangaChain', description: "Solana's twin. Native token: DOPEL." };
-
-const inter = Inter({ subsets: ['latin'], weight: ['400','600','700','800','900'] });
+export const metadata = { title: 'DopelgangaChain', description: "Solana's twin. Native token: DOPE." };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} text-white bg-dopel-gradient min-h-screen`}>
+      <body className={`text-white bg-dopel-gradient min-h-screen`}>
         <ToastProvider>
           <WalletWrapper>
             <Nav />

@@ -2,7 +2,7 @@
 import 'dotenv/config';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import { publicKey } from '@metaplex-foundation/umi';
-import { mplTokenMetadata, findMetadataPda, fetchMetadataFromSeeds } from '@metaplex-foundation/mpl-token-metadata';
+import { mplTokenMetadata, findMetadataPda, fetchMetadataFromSeeds, safeFetchMetadataFromSeeds } from '@metaplex-foundation/mpl-token-metadata';
 
 function parseArgs(argv) {
   const args = {};
@@ -42,18 +42,32 @@ async function main() {
   try {
     const mintPk = publicKey(MINT);
     const metadataPda = findMetadataPda(umi, { mint: mintPk });
-    const meta = await fetchMetadataFromSeeds(umi, { mint: mintPk });
-    const d = meta.data;
+
+    // Poll a few times to allow recent creations to propagate
+    let meta = await safeFetchMetadataFromSeeds(umi, { mint: mintPk });
+    if (!meta) {
+      for (let i = 0; i < 5; i++) {
+        await new Promise(r => setTimeout(r, 800));
+        meta = await safeFetchMetadataFromSeeds(umi, { mint: mintPk });
+        if (meta) break;
+      }
+    }
+    if (!meta) {
+      // Fallback to throwing fetch (preserves SDK error messages)
+      meta = await fetchMetadataFromSeeds(umi, { mint: mintPk });
+    }
+
+    const d = meta?.data || meta; // handle schema differences defensively
     const info = {
       mint: MINT,
       metadataPda: String(metadataPda[0] ?? metadataPda),
-      updateAuthority: String(d.updateAuthority),
-      isMutable: d.isMutable,
-      primarySaleHappened: d.primarySaleHappened,
-      sellerFeeBasisPoints: d.sellerFeeBasisPoints,
-      name: trim0(d.name),
-      symbol: trim0(d.symbol),
-      uri: trim0(d.uri),
+      updateAuthority: d?.updateAuthority ? String(d.updateAuthority) : undefined,
+      isMutable: d?.isMutable,
+      primarySaleHappened: d?.primarySaleHappened,
+      sellerFeeBasisPoints: d?.sellerFeeBasisPoints,
+      name: trim0(d?.name),
+      symbol: trim0(d?.symbol),
+      uri: trim0(d?.uri),
     };
     console.log(JSON.stringify(info, null, 2));
 
@@ -74,4 +88,3 @@ async function main() {
 }
 
 main();
-

@@ -2,6 +2,7 @@
 import useSWR from "swr";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card } from "@/components/Card";
 
 
@@ -10,36 +11,58 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function Explorer() {
   const [search, setSearch] = useState("");
+  const router = useRouter();
   const indexerUrl = process.env.NEXT_PUBLIC_INDEXER_URL || "";
+  const ver = process.env.NEXT_PUBLIC_EXPLORER_VERSION || "0";
   const { data: blocks, error: blocksError } = useSWR(
-    `/api/blocks?limit=20`,
+    `/api/blocks?limit=20&v=${ver}`,
     fetcher,
     { refreshInterval: 5000 }
   );
   const { data: stats, error: statsError } = useSWR(
-    "/api/stats",
+    `/api/stats?v=${ver}`,
     fetcher,
     { refreshInterval: 5000 }
   );
   const { data: txs, error: txsError } = useSWR(
-    "/api/transactions",
+    `/api/transactions?v=${ver}`,
     fetcher,
     { refreshInterval: 5000 }
   );
   const { data: health } = useSWR(
-    indexerUrl ? `${indexerUrl}/health` : null,
+    indexerUrl ? `${indexerUrl}/health?v=${ver}` : null,
     fetcher,
     { refreshInterval: 5000 }
   );
   const { data: rewards, error: rewardsError } = useSWR(
-    "/api/rewards/recent",
+    `/api/rewards/recent?v=${ver}`,
     fetcher,
     { refreshInterval: 5000 }
   );
 
+  const isNumeric = (s: string) => /^\d+$/.test(s);
+  const isBase58ish = (s: string) => /^[1-9A-HJ-NP-Za-km-z]+$/.test(s);
+
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Future: route to block/tx/address pages based on input
+    const q = search.trim();
+    if (!q) return;
+    if (isNumeric(q)) {
+      router.push(`/blocks/${q}`);
+      return;
+    }
+    if (isBase58ish(q) && q.length >= 43) {
+      // Heuristic: if user pasted a full tx sig, try /tx; otherwise assume address
+      // Our DB stores derived signatures like `${sig}-i`, so the API will try prefix match.
+      router.push(`/tx/${q}`);
+      return;
+    }
+    if (isBase58ish(q)) {
+      router.push(`/address/${q}`);
+      return;
+    }
+    // Fallback: try blocks route
+    router.push(`/blocks/${q}`);
   };
 
   return (

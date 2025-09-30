@@ -6,6 +6,8 @@ const cors = require('cors');
 const { supabase, dbEnabled } = require('./db');
 
 const PROGRAM_ID = new PublicKey(process.env.PROGRAM_ID);
+const TOKEN_PROGRAM_ID = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+const WATCH_MINT = process.env.DOP_MINT || '';
 const RPC_URL = process.env.RPC_URL || 'https://api.mainnet-beta.solana.com';
 const connection = new Connection(RPC_URL, 'confirmed');
 
@@ -357,6 +359,100 @@ async function main() {
         });
     }, "confirmed");
     health.subscribed = true;
+
+    // Also watch SPL Token Program to index transfers/mints for the configured mint
+    if (WATCH_MINT) {
+      console.log('Indexing SPL token activity for mint:', WATCH_MINT);
+      connection.onLogs(TOKEN_PROGRAM_ID, async (logInfo) => {
+        try {
+          const sig = logInfo.signature;
+          // Fetch parsed transaction to inspect SPL instructions
+          const parsed = await connection.getParsedTransaction(sig, {
+            maxSupportedTransactionVersion: 0,
+            commitment: 'confirmed',
+          });
+          if (!parsed) return;
+          const blockTime = parsed.blockTime ? parsed.blockTime * 1000 : Date.now();
+
+          const allInstr = [];
+          const top = parsed.transaction.message.instructions || [];
+          allInstr.push(...top);
+          const inners = parsed.meta?.innerInstructions || [];
+          for (const ix of inners) {
+            if (ix?.instructions) allInstr.push(...ix.instructions);
+          }
+
+          const rows = [];
+          for (const i of allInstr) {
+            const prog = i.program || i.programId?.toBase58?.() || '';
+            const parsedIx = i.parsed || {};
+            const info = parsedIx.info || {};
+            const typ = parsedIx.type || '';
+            const mint = info.mint || info?.destinationMint || '';
+            if (prog !== 'spl-token') continue;
+            if (mint !== WATCH_MINT) continue;
+
+            if (typ === 'transfer' || typ === 'transferChecked') {
+              rows.push({
+                signature: sig,
+                type: 'Transfer',
+                amount: Number(info.amount || 0),
+                from_addr: info.source || null,
+                to_addr: info.destination || null,
+                timestamp: blockTime,
+              });
+            } else if (typ === 'mintTo' || typ === 'mintToChecked') {
+              rows.push({
+                signature: sig,
+                type: 'Mint',
+                amount: Number(info.amount || 0),
+                from_addr: info.mintAuthority || null,
+                to_addr: info.account || info.destination || null,
+                timestamp: blockTime,
+              });
+            } else if (typ === 'burn' || typ === 'burnChecked') {
+              rows.push({
+                signature: sig,
+                type: 'Burn',
+                amount: Number(info.amount || 0),
+                from_addr: info.account || null,
+                to_addr: null,
+                timestamp: blockTime,
+              });
+            }
+          }
+
+          if (rows.length === 0) return;
+
+          if (dbEnabled) {
+            const { error: txErr } = await supabase
+              .from('dopel_transactions')
+              .insert(rows);
+            if (txErr) {
+              // Ignore unique violations (already ingested)
+              if (!String(txErr.message || txErr).toLowerCase().includes('duplicate')) {
+                console.warn('Supabase insert error (spl rows):', txErr);
+              }
+            }
+          } else {
+            memoryTransactions.push(
+              ...rows.map((t) => ({
+                signature: t.signature,
+                type: t.type,
+                amount: t.amount,
+                from: t.from_addr,
+                to: t.to_addr,
+                timestamp: t.timestamp,
+              }))
+            );
+          }
+        } catch (e) {
+          console.warn('SPL log parse failed:', e?.message || e);
+        }
+      }, 'confirmed');
+    } else {
+      console.log('DOP_MINT not set; skipping SPL token activity indexing');
+    }
 }
 
 main().catch(console.error);

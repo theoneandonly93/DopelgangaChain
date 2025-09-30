@@ -7,7 +7,9 @@
     "finalize:metadata": "node scripts/finalizeMetadata.mjs",
     "finalize:metadata:dry-run": "DRY_RUN=1 node scripts/finalizeMetadata.mjs",
     "mint:reward": "node scripts/mintReward.mjs",
-    "mint:authority:set": "node scripts/setMintAuthority.mjs"
+    "mint:authority:set": "node scripts/setMintAuthority.mjs",
+    "mint:switch": "node scripts/switchMint.mjs",
+    "mint:new": "node scripts/newMint.mjs"
   },
   "dependencies": {
     "@metaplex-foundation/mpl-token-metadata": "^3.4.0",

@@ -4,6 +4,9 @@ import { CopyButton } from '../components/CopyButton';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Pull program id from env for display/copy
+const GENESIS_PROGRAM_ID = process.env.NEXT_PUBLIC_PROGRAM_ID || 'HAzZhRcVrrFWYU9K4nWCSvpgLLcMSb9GZRfrcs3bYfDP';
+
 export default function Home() {
   return (
     <div className="max-w-6xl mx-auto py-12">
@@ -16,7 +19,7 @@ export default function Home() {
           SOLANA'S TWIN — BUILT FOR SPEED
         </h1>
         <p className="mt-4 text-white/80 max-w-2xl mx-auto">
-          DopelgangaChain mirrors Solana’s battle-tested architecture with native token DOPEL. Same speed and security — your apps run on Solana’s twin.
+          DopelgangaChain mirrors Solana’s battle-tested architecture with native token DOPE. Same speed and security — your apps run on Solana’s twin.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link href="#network" className="px-5 py-2.5 rounded-xl bg-dopel-500 text-black font-bold hover:bg-dopel-400 shadow-card">Network Status</Link>
@@ -38,17 +41,17 @@ export default function Home() {
           <Card className="shadow-card text-left">
             <div className="text-xs text-white/60">RPC URL</div>
             <div className="font-mono mt-1 text-white/90 break-all overflow-x-auto whitespace-pre-wrap max-w-full" style={{wordBreak: 'break-all'}}>
-              https://dopelgangachain.dev
+              https://dopel-rpc.dopelganga.workers.dev
             </div>
             <div className="mt-3 flex gap-2">
-              <CopyButton value="https://dopelgangachain.dev" label="Copy URL" className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30" />
+              <CopyButton value="https://dopel-rpc.dopelganga.workers.dev" label="Copy URL" className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30" />
               {/* TODO: Replace with live explorer link when available */}
             </div>
           </Card>
           <Card className="shadow-card text-left">
             <div className="text-xs text-white/60">GENESIS PROGRAM</div>
-            <div className="font-mono mt-1 break-all text-white/90">Co4692bPPQXAqqxSLAeTTvF1bnhY26FUWt2YuWQPBgfU</div>
-            <div className="mt-3"><CopyButton value="Co4692bPPQXAqqxSLAeTTvF1bnhY26FUWt2YuWQPBgfU" label="Copy Address" className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30" /></div>
+            <div className="font-mono mt-1 break-all text-white/90">{GENESIS_PROGRAM_ID}</div>
+            <div className="mt-3"><CopyButton value={GENESIS_PROGRAM_ID} label="Copy Address" className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30" /></div>
           </Card>
         </div>
       </section>
@@ -57,7 +60,7 @@ export default function Home() {
         <h3 className="text-2xl font-extrabold mb-4">Why DopelgangaChain?</h3>
         <div className="grid md:grid-cols-4 gap-5">
           <Card className="shadow-card"><h4 className="font-semibold">Lightning Fast</h4><p className="text-sm text-white/70 mt-2">Meme transactions at the speed of light with Solana compatibility</p></Card>
-          <Card className="shadow-card"><h4 className="font-semibold">Secure & Reliable</h4><p className="text-sm text-white/70 mt-2">Built on Solana’s twin architecture with native DOPEL token</p></Card>
+          <Card className="shadow-card"><h4 className="font-semibold">Secure & Reliable</h4><p className="text-sm text-white/70 mt-2">Built on Solana’s twin architecture with native DOPE token</p></Card>
           <Card className="shadow-card"><h4 className="font-semibold">Community Driven</h4><p className="text-sm text-white/70 mt-2">Governed by the meme community for maximum banana potential</p></Card>
           <Card className="shadow-card"><h4 className="font-semibold">Developer Friendly</h4><p className="text-sm text-white/70 mt-2">Full Solana compatibility — deploy once, run on the twin</p></Card>
         </div>
@@ -74,14 +77,14 @@ export default function Home() {
         <h3 className="text-2xl font-bold mb-4 text-center">Roadmap</h3>
         <div className="grid md:grid-cols-3 gap-5">
           <Card className="shadow-card"><h4 className="font-semibold">Phase 1</h4><p className="text-sm text-white/70 mt-2">Mainnet launch, RPC endpoints, explorer</p></Card>
-          <Card className="shadow-card"><h4 className="font-semibold">Phase 2</h4><p className="text-sm text-white/70 mt-2">Ecosystem growth, DOPEL integrations, tooling</p></Card>
+          <Card className="shadow-card"><h4 className="font-semibold">Phase 2</h4><p className="text-sm text-white/70 mt-2">Ecosystem growth, DOPE integrations, tooling</p></Card>
           <Card className="shadow-card"><h4 className="font-semibold">Phase 3</h4><p className="text-sm text-white/70 mt-2">Cross-chain bridge, governance, scaling</p></Card>
         </div>
       </section>
 
       <section id="faucet" className="glass rounded-3xl border border-white/5 p-6 md:p-8 mb-12 text-center">
         <h3 className="text-2xl font-bold">Faucet</h3>
-        <p className="text-white/70 mt-2">Get DOPEL test tokens to try the network</p>
+        <p className="text-white/70 mt-2">Get DOPE test tokens to try the network</p>
         <div className="mt-4 flex justify-center gap-3">
           {/* TODO: Replace with live faucet button when available */}
           <Link href="/documents" className="px-5 py-2.5 rounded-xl border border-white/10 hover:border-white/30 bg-white/10">Read Docs</Link>
@@ -89,7 +92,7 @@ export default function Home() {
       </section>
 
       <footer className="py-10 text-center text-white/50 text-sm">
-        © {new Date().getFullYear()} DopelgangaChain — Solana’s twin. Native token: DOPEL
+        © {new Date().getFullYear()} DopelgangaChain — Solana’s twin. Native token: DOPE
       </footer>
     </div>
   );
