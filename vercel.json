@@ -1,7 +1,7 @@
 {
   "version": 2,
   "framework": "nextjs",
-  "installCommand": "if [ -f frontend/package.json ]; then (cd frontend && npm install --no-audit --no-fund); else npm install --no-audit --no-fund; fi",
+  "installCommand": "if [ -f frontend/package.json ]; then (cd frontend && npm install --no-audit --no-fund --legacy-peer-deps --ignore-scripts); else npm install --no-audit --no-fund --legacy-peer-deps --ignore-scripts; fi",
   "buildCommand": "if [ -f frontend/package.json ]; then (cd frontend && npm run build); else npm run build; fi",
   "env": {
     "NEXT_TELEMETRY_DISABLED": "1"
