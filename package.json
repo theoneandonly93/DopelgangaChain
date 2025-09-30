@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": ">=18 <23"
+  },
   "scripts": {
     "hash:metadata": "node -e \"const fs=require('fs');const c=fs.readFileSync('metadata/dopelganga.json');const {createHash}=require('crypto');const h=createHash('sha256').update(c).digest('hex');console.log('dopelganga.json SHA256:',h);\"",
     "token:metadata:set": "node scripts/setTokenMetadata.mjs",
