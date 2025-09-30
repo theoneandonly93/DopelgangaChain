@@ -28,3 +28,6 @@ Thumbs.db
 # Build artifacts
 dist/
 coverage/
+dev1-*.json
+*keypair.json
+program/target/
